@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>InfinityfitAI - Train Smarter. Eat Better. Live Stronger.</title>
+    
+    <!-- Meta Descriptions & SEO -->
+    <meta name="description" content="InfinityfitAI is the ultimate personalized AI health, nutrition, workout, and fasting platform. Train Smarter. Eat Better. Live Stronger." />
+    <meta name="keywords" content="InfinityfitAI, BMI Calculator, Meal Planner, Weight Loss Diet, Protein Calculator, Calorie Calculator, Intermittent Fasting Timer, Workout Planner, Yoga Routines, AI Health Coach" />
+    <meta name="author" content="InfinityfitAI Health Technologies" />
+    <meta name="theme-color" content="#0B0F17" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://infinityfit.ai/" />
+    <meta property="og:title" content="InfinityfitAI - Train Smarter. Eat Better. Live Stronger." />
+    <meta property="og:description" content="Elevate your physical transformation with AI-driven nutrition plans, fasting timers, macro calculations, and workouts." />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=1200&auto=format&fit=crop" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="InfinityfitAI - Train Smarter. Eat Better. Live Stronger." />
+    <meta property="twitter:description" content="Personalized diet plans, targeted workout guides, intermittent fasting timer, and AI health coaching." />
+    <meta property="twitter:image" content="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=1200&auto=format&fit=crop" />
+
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Structured Data (Schema.org) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "InfinityfitAI",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "All",
+      "description": "AI-powered fitness, nutrition, fasting, and body analytics platform. Train Smarter. Eat Better. Live Stronger.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+  </head>
+  <body class="bg-[#0B0F17] text-slate-100 font-sans antialiased selection:bg-emerald-500 selection:text-white transition-colors duration-300 min-h-screen">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW registration failed: ', err));
+        });
+      }
+    </script>
+  </body>
+</html>
