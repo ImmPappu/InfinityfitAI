@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://fitfusion.ai/sitemap.xml
+Sitemap: https://infinityfit.ai/sitemap.xml

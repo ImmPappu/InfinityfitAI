@@ -1,4 +1,4 @@
-const CACHE_NAME = 'fitfusion-v1';
+const CACHE_NAME = 'infinityfit-v1';
 const ASSETS = [
   '/',
   '/index.html',

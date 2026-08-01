@@ -393,7 +393,7 @@ export const mockAchievements: AchievementBadge[] = [
   {
     id: 'ach-4',
     title: '30 Day Elite Fitness',
-    description: 'Complete 30 consecutive days in the InfinityfitAI ecosystem.',
+    description: 'Complete 30 consecutive days in the InfinityFitAI ecosystem.',
     icon: '🏆',
     unlocked: false
   }

@@ -8,21 +8,20 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
 
   useEffect(() => {
-    const root = document.documentElement;
-    root.classList.add('dark');
-    root.classList.remove('light');
-    localStorage.setItem('fitfusion_theme', 'dark');
+    document.documentElement.classList.remove('dark');
+    document.documentElement.classList.add('light');
+    localStorage.setItem('infinityfit_theme', 'light');
   }, [isDarkMode]);
 
   const toggleTheme = () => {
-    setIsDarkMode(true);
+    setIsDarkMode(false);
   };
 
   return (
-    <ThemeContext.Provider value={{ isDarkMode: true, toggleTheme }}>
+    <ThemeContext.Provider value={{ isDarkMode: false, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   );

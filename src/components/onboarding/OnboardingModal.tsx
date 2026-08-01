@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import { 
   X, 
@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 import { useUser } from '../../context/UserContext';
 import { useLanguage } from '../../context/LanguageContext';
-import type { Gender, Goal, BodyType, ActivityLevel, DietPreference, WorkoutExperience, HealthCondition, FoodAllergy } from '../../types';
+import type { Gender, Goal, BodyType, ActivityLevel, DietPreference, WorkoutExperience } from '../../types';
 
 export const OnboardingModal: React.FC = () => {
   const { profile, updateProfile, isOnboardingOpen, closeOnboarding, setActiveTab } = useUser();
@@ -31,7 +31,6 @@ export const OnboardingModal: React.FC = () => {
     if (step < 5) {
       setStep((prev) => prev + 1);
     } else {
-      // Final Submit
       updateProfile({ ...formData, isOnboarded: true });
       confetti({
         particleCount: 120,
@@ -56,52 +55,52 @@ export const OnboardingModal: React.FC = () => {
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-2xl overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm overflow-y-auto">
       <motion.div
-        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+        initial={{ opacity: 0, scale: 0.95, y: 15 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.95, y: 20 }}
-        className="relative w-full max-w-2xl bg-slate-900/95 border border-slate-800 rounded-3xl shadow-2xl overflow-hidden my-8"
+        exit={{ opacity: 0, scale: 0.95, y: 15 }}
+        className="relative w-full max-w-2xl bg-white border border-[#E5E7EB] rounded-2xl shadow-xl overflow-hidden my-8 text-left text-[#111827]"
       >
         {/* Top Header Banner */}
-        <div className="relative px-6 py-5 bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-cyan-500/10 border-b border-slate-800 flex items-center justify-between">
+        <div className="px-6 py-5 bg-[#F8FAFC] border-b border-[#E5E7EB] flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-xl bg-emerald-500/20 text-emerald-400">
+            <div className="p-2 rounded-xl bg-[#22C55E]/10 text-[#22C55E]">
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-base font-extrabold text-white">
+              <h3 className="text-base font-extrabold text-[#111827]">
                 {t('onboardingTitle')}
               </h3>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-[#6B7280] font-medium">
                 Step {step} of 5 - {stepsList[step - 1].label}
               </p>
             </div>
           </div>
           <button
             onClick={closeOnboarding}
-            className="p-2 rounded-full text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+            className="p-2 rounded-full text-[#6B7280] hover:text-[#111827] hover:bg-[#E5E7EB] transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Step Progress Bar */}
-        <div className="w-full bg-slate-950 h-1.5 flex">
+        {/* Clean Progress Line Indicator */}
+        <div className="w-full bg-[#F8FAFC] h-1.5 flex">
           <div 
-            className="h-full bg-gradient-to-r from-emerald-400 to-cyan-400 transition-all duration-300" 
+            className="h-full bg-[#22C55E] transition-all duration-300 rounded-r-full" 
             style={{ width: `${(step / 5) * 100}%` }}
           />
         </div>
 
-        {/* Modal Form Body */}
-        <div className="p-6 sm:p-8 space-y-6 max-h-[70vh] overflow-y-auto">
+        {/* Modal Body */}
+        <div className="p-6 sm:p-8 space-y-6 max-h-[65vh] overflow-y-auto">
           
           {/* STEP 1: Personal Details */}
           {step === 1 && (
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+                <label className="block text-xs font-bold uppercase tracking-wider text-[#111827] mb-2">
                   {t('name')}
                 </label>
                 <input
@@ -109,19 +108,19 @@ export const OnboardingModal: React.FC = () => {
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   placeholder="e.g. Alex Vance"
-                  className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm font-semibold focus:outline-none focus:border-emerald-500"
+                  className="w-full px-4 py-3 rounded-2xl bg-[#F8FAFC] border border-[#E5E7EB] text-[#111827] text-sm font-semibold focus:outline-none focus:border-[#22C55E]"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-[#111827] mb-2">
                     {t('gender')}
                   </label>
                   <select
                     value={formData.gender}
                     onChange={(e) => setFormData({ ...formData, gender: e.target.value as Gender })}
-                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm font-semibold focus:outline-none focus:border-emerald-500"
+                    className="w-full px-4 py-3 rounded-2xl bg-[#F8FAFC] border border-[#E5E7EB] text-[#111827] text-sm font-semibold focus:outline-none focus:border-[#22C55E]"
                   >
                     <option value="male">Male</option>
                     <option value="female">Female</option>
@@ -130,40 +129,40 @@ export const OnboardingModal: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-[#111827] mb-2">
                     {t('age')}
                   </label>
                   <input
                     type="number"
                     value={formData.age}
                     onChange={(e) => setFormData({ ...formData, age: Number(e.target.value) })}
-                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm font-semibold focus:outline-none focus:border-emerald-500"
+                    className="w-full px-4 py-3 rounded-2xl bg-[#F8FAFC] border border-[#E5E7EB] text-[#111827] text-sm font-semibold focus:outline-none focus:border-[#22C55E]"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-[#111827] mb-2">
                     {t('height')} (cm)
                   </label>
                   <input
                     type="number"
                     value={formData.heightCm}
                     onChange={(e) => setFormData({ ...formData, heightCm: Number(e.target.value) })}
-                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm font-semibold focus:outline-none focus:border-emerald-500"
+                    className="w-full px-4 py-3 rounded-2xl bg-[#F8FAFC] border border-[#E5E7EB] text-[#111827] text-sm font-semibold focus:outline-none focus:border-[#22C55E]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-[#111827] mb-2">
                     {t('weight')} (kg)
                   </label>
                   <input
                     type="number"
                     value={formData.weightKg}
                     onChange={(e) => setFormData({ ...formData, weightKg: Number(e.target.value) })}
-                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm font-semibold focus:outline-none focus:border-emerald-500"
+                    className="w-full px-4 py-3 rounded-2xl bg-[#F8FAFC] border border-[#E5E7EB] text-[#111827] text-sm font-semibold focus:outline-none focus:border-[#22C55E]"
                   />
                 </div>
               </div>
@@ -174,7 +173,7 @@ export const OnboardingModal: React.FC = () => {
           {step === 2 && (
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                <label className="block text-xs font-bold uppercase tracking-wider text-[#111827] mb-2">
                   {t('goal')}
                 </label>
                 <div className="grid grid-cols-3 gap-3">
@@ -188,8 +187,8 @@ export const OnboardingModal: React.FC = () => {
                       onClick={() => setFormData({ ...formData, goal: item.id as Goal })}
                       className={`p-4 rounded-2xl border text-center transition-all ${
                         formData.goal === item.id
-                          ? 'border-emerald-500 bg-emerald-500/10 text-emerald-400 shadow-lg'
-                          : 'border-slate-800 bg-slate-950 text-slate-400 hover:border-slate-700'
+                          ? 'border-[#22C55E] bg-[#22C55E]/10 text-[#22C55E] font-bold shadow-xs'
+                          : 'border-[#E5E7EB] bg-[#F8FAFC] text-[#6B7280] hover:text-[#111827]'
                       }`}
                     >
                       <span className="text-2xl block mb-1">{item.icon}</span>
@@ -200,14 +199,14 @@ export const OnboardingModal: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+                <label className="block text-xs font-bold uppercase tracking-wider text-[#111827] mb-2">
                   {t('targetWeight')} (kg)
                 </label>
                 <input
                   type="number"
                   value={formData.targetWeightKg}
                   onChange={(e) => setFormData({ ...formData, targetWeightKg: Number(e.target.value) })}
-                  className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm font-semibold focus:outline-none focus:border-emerald-500"
+                  className="w-full px-4 py-3 rounded-2xl bg-[#F8FAFC] border border-[#E5E7EB] text-[#111827] text-sm font-semibold focus:outline-none focus:border-[#22C55E]"
                 />
               </div>
             </div>
@@ -217,7 +216,7 @@ export const OnboardingModal: React.FC = () => {
           {step === 3 && (
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                <label className="block text-xs font-bold uppercase tracking-wider text-[#111827] mb-2">
                   {t('bodyType')}
                 </label>
                 <div className="grid grid-cols-3 gap-3">
@@ -229,10 +228,10 @@ export const OnboardingModal: React.FC = () => {
                     <button
                       key={b.id}
                       onClick={() => setFormData({ ...formData, bodyType: b.id as BodyType })}
-                      className={`p-3 rounded-xl border text-xs font-bold transition-all ${
+                      className={`p-3 rounded-2xl border text-xs font-bold transition-all ${
                         formData.bodyType === b.id
-                          ? 'border-emerald-500 bg-emerald-500/10 text-emerald-400'
-                          : 'border-slate-800 bg-slate-950 text-slate-400'
+                          ? 'border-[#22C55E] bg-[#22C55E]/10 text-[#22C55E]'
+                          : 'border-[#E5E7EB] bg-[#F8FAFC] text-[#6B7280]'
                       }`}
                     >
                       {b.label}
@@ -242,7 +241,7 @@ export const OnboardingModal: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                <label className="block text-xs font-bold uppercase tracking-wider text-[#111827] mb-2">
                   {t('activityLevel')}
                 </label>
                 <div className="space-y-2">
@@ -256,14 +255,14 @@ export const OnboardingModal: React.FC = () => {
                     <button
                       key={act.id}
                       onClick={() => setFormData({ ...formData, activityLevel: act.id as ActivityLevel })}
-                      className={`w-full p-3 rounded-xl border text-left text-xs font-bold transition-all flex items-center justify-between ${
+                      className={`w-full p-3.5 rounded-2xl border text-left text-xs font-bold transition-all flex items-center justify-between ${
                         formData.activityLevel === act.id
-                          ? 'border-emerald-500 bg-emerald-500/10 text-emerald-400'
-                          : 'border-slate-800 bg-slate-950 text-slate-400 hover:border-slate-700'
+                          ? 'border-[#22C55E] bg-[#22C55E]/10 text-[#22C55E]'
+                          : 'border-[#E5E7EB] bg-[#F8FAFC] text-[#6B7280] hover:text-[#111827]'
                       }`}
                     >
                       <span>{act.label}</span>
-                      {formData.activityLevel === act.id && <CheckCircle2 className="w-4 h-4 text-emerald-400" />}
+                      {formData.activityLevel === act.id && <CheckCircle2 className="w-4 h-4 text-[#22C55E]" />}
                     </button>
                   ))}
                 </div>
@@ -271,11 +270,11 @@ export const OnboardingModal: React.FC = () => {
             </div>
           )}
 
-          {/* STEP 4: Diet Preference & Health Conditions */}
+          {/* STEP 4: Diet Preference */}
           {step === 4 && (
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                <label className="block text-xs font-bold uppercase tracking-wider text-[#111827] mb-2">
                   {t('dietPreference')}
                 </label>
                 <div className="grid grid-cols-3 gap-3">
@@ -287,13 +286,13 @@ export const OnboardingModal: React.FC = () => {
                     <button
                       key={d.id}
                       onClick={() => setFormData({ ...formData, dietPreference: d.id as DietPreference })}
-                      className={`p-3.5 rounded-xl border text-center transition-all ${
+                      className={`p-4 rounded-2xl border text-center transition-all ${
                         formData.dietPreference === d.id
-                          ? 'border-emerald-500 bg-emerald-500/10 text-emerald-400 font-bold'
-                          : 'border-slate-800 bg-slate-950 text-slate-400'
+                          ? 'border-[#22C55E] bg-[#22C55E]/10 text-[#22C55E] font-bold'
+                          : 'border-[#E5E7EB] bg-[#F8FAFC] text-[#6B7280]'
                       }`}
                     >
-                      <span className="text-xl block mb-1">{d.icon}</span>
+                      <span className="text-2xl block mb-1">{d.icon}</span>
                       <span className="text-xs font-bold">{d.label}</span>
                     </button>
                   ))}
@@ -301,13 +300,13 @@ export const OnboardingModal: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+                <label className="block text-xs font-bold uppercase tracking-wider text-[#111827] mb-2">
                   {t('workoutExperience')}
                 </label>
                 <select
                   value={formData.workoutExperience}
                   onChange={(e) => setFormData({ ...formData, workoutExperience: e.target.value as WorkoutExperience })}
-                  className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm font-semibold focus:outline-none focus:border-emerald-500"
+                  className="w-full px-4 py-3 rounded-2xl bg-[#F8FAFC] border border-[#E5E7EB] text-[#111827] text-sm font-semibold focus:outline-none focus:border-[#22C55E]"
                 >
                   <option value="beginner">Beginner (0-6 months)</option>
                   <option value="intermediate">Intermediate (1-3 years)</option>
@@ -322,7 +321,7 @@ export const OnboardingModal: React.FC = () => {
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-[#111827] mb-2">
                     {t('workoutDays')}
                   </label>
                   <input
@@ -331,12 +330,12 @@ export const OnboardingModal: React.FC = () => {
                     max={7}
                     value={formData.workoutDaysPerWeek}
                     onChange={(e) => setFormData({ ...formData, workoutDaysPerWeek: Number(e.target.value) })}
-                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm font-semibold focus:outline-none focus:border-emerald-500"
+                    className="w-full px-4 py-3 rounded-2xl bg-[#F8FAFC] border border-[#E5E7EB] text-[#111827] text-sm font-semibold focus:outline-none focus:border-[#22C55E]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-[#111827] mb-2">
                     {t('sleepHours')}
                   </label>
                   <input
@@ -345,28 +344,28 @@ export const OnboardingModal: React.FC = () => {
                     max={12}
                     value={formData.sleepHours}
                     onChange={(e) => setFormData({ ...formData, sleepHours: Number(e.target.value) })}
-                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm font-semibold focus:outline-none focus:border-emerald-500"
+                    className="w-full px-4 py-3 rounded-2xl bg-[#F8FAFC] border border-[#E5E7EB] text-[#111827] text-sm font-semibold focus:outline-none focus:border-[#22C55E]"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
-                  {t('waterIntake')}
+                <label className="block text-xs font-bold uppercase tracking-wider text-[#111827] mb-2">
+                  {t('waterIntake')} (Liters)
                 </label>
                 <input
                   type="number"
                   step="0.1"
                   value={formData.waterIntakeLiters}
                   onChange={(e) => setFormData({ ...formData, waterIntakeLiters: Number(e.target.value) })}
-                  className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm font-semibold focus:outline-none focus:border-emerald-500"
+                  className="w-full px-4 py-3 rounded-2xl bg-[#F8FAFC] border border-[#E5E7EB] text-[#111827] text-sm font-semibold focus:outline-none focus:border-[#22C55E]"
                 />
               </div>
 
-              <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-start gap-3">
-                <AlertCircle className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-                <p className="text-xs text-emerald-300 leading-relaxed">
-                  FitFusion AI will compile your precise BMR, TDEE, macros split, 12 micronutrient targets, and customized food/workout recommendations.
+              <div className="p-4 rounded-2xl bg-[#22C55E]/10 border border-[#22C55E]/30 flex items-start gap-3">
+                <AlertCircle className="w-5 h-5 text-[#22C55E] shrink-0 mt-0.5" />
+                <p className="text-xs text-[#111827] leading-relaxed font-medium">
+                  InfinityFitAI will calculate your BMR, TDEE, macros split, 12 micronutrient targets, and food/workout routines.
                 </p>
               </div>
             </div>
@@ -374,15 +373,15 @@ export const OnboardingModal: React.FC = () => {
 
         </div>
 
-        {/* Modal Footer Navigation */}
-        <div className="px-6 py-4 bg-slate-950 border-t border-slate-800 flex items-center justify-between">
+        {/* Clean Light Modal Footer Navigation */}
+        <div className="px-6 py-4 bg-white border-t border-[#E5E7EB] flex items-center justify-between">
           <button
             onClick={handlePrev}
             disabled={step === 1}
-            className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            className={`flex items-center gap-1.5 px-4 py-2.5 rounded-2xl text-xs font-bold transition-all ${
               step === 1
-                ? 'opacity-40 cursor-not-allowed text-slate-500'
-                : 'text-slate-300 hover:bg-slate-900'
+                ? 'opacity-30 cursor-not-allowed text-[#6B7280]'
+                : 'bg-white border border-[#E5E7EB] text-[#111827] hover:bg-[#F8FAFC]'
             }`}
           >
             <ChevronLeft className="w-4 h-4" />
@@ -391,7 +390,7 @@ export const OnboardingModal: React.FC = () => {
 
           <button
             onClick={handleNext}
-            className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 text-slate-950 font-black text-xs shadow-lg shadow-emerald-500/20 hover:scale-105 transition-transform"
+            className="flex items-center gap-2 px-6 py-2.5 rounded-2xl bg-[#22C55E] hover:bg-[#16a34a] text-white font-extrabold text-xs transition-all shadow-xs"
           >
             <span>{step === 5 ? t('finishOnboarding') : t('nextStep')}</span>
             <ChevronRight className="w-4 h-4" />

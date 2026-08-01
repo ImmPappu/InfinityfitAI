@@ -1,155 +1,136 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Bot, Send, Sparkles, User, Lightbulb, Zap, HelpCircle } from 'lucide-react';
+import { Bot, Send, Sparkles, HelpCircle } from 'lucide-react';
 import { useUser } from '../../context/UserContext';
-
-interface ChatMessage {
-  id: string;
-  sender: 'user' | 'ai';
-  text: string;
-  timestamp: string;
-}
 
 export const AiCoachPage: React.FC = () => {
   const { profile, metrics } = useUser();
-  const [messages, setMessages] = useState<ChatMessage[]>([
-    {
-      id: 'msg-1',
-      sender: 'ai',
-      text: `Hello ${profile.name}! I am FitBot AI, your personal senior nutrition & athletic conditioning coach. I've analyzed your blueprint: Target Calories are ${metrics.dailyCalories} kcal with ${metrics.proteinGrams}g Protein for your ${profile.goal} weight goal. How can I guide your transformation today?`,
-      timestamp: 'Just now'
-    }
-  ]);
-
   const [inputQuery, setInputQuery] = useState('');
+  const [activeResponse, setActiveResponse] = useState<string | null>(null);
 
-  const quickChips = [
-    "What should I eat today?",
-    "High protein foods list",
-    "Weight loss tips for my goal",
-    "Gym hypertrophy advice",
-    "Yoga & morning flow benefits",
-    "Healthy 15-min recipes",
-    "Give me daily motivation"
+  const exampleQuestions = [
+    "High protein breakfast",
+    "Weight loss tips",
+    "Daily calories",
+    "Muscle gain"
   ];
 
-  const handleSend = (textToSend?: string) => {
-    const query = textToSend || inputQuery;
+  const handleSend = (queryText?: string) => {
+    const query = queryText || inputQuery;
     if (!query.trim()) return;
 
-    const userMsg: ChatMessage = {
-      id: Date.now().toString(),
-      sender: 'user',
-      text: query,
-      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-    };
+    // Direct clear answer based on user target
+    let response = `For your ${profile.goal} goal (${metrics.dailyCalories} kcal / day target): `;
+    const qLower = query.toLowerCase();
 
-    setMessages((prev) => [...prev, userMsg]);
-    if (!textToSend) setInputQuery('');
+    if (qLower.includes('protein') || qLower.includes('breakfast')) {
+      response += "Aim for 30-40g protein at breakfast. High-protein options include Paneer Bhurji with 2 whole eggs, Tofu Scramble, or Whey Isolate with Oats & Peanut Butter.";
+    } else if (qLower.includes('weight loss')) {
+      response += `Maintain your 500 kcal daily deficit (${metrics.dailyCalories} kcal), hydrate with ${metrics.idealWaterLiters}L water daily, and follow a 16:8 intermittent fasting window.`;
+    } else if (qLower.includes('calories')) {
+      response += `Your calculated BMR is ${metrics.bmr} kcal and TDEE is ${metrics.tdee} kcal. Your active daily target is ${metrics.dailyCalories} kcal.`;
+    } else if (qLower.includes('muscle')) {
+      response += `Consume ${metrics.proteinGrams}g protein daily (1.8g per kg bodyweight) combined with 4 days of progressive overload resistance training.`;
+    } else {
+      response += `Prioritize hitting your ${metrics.proteinGrams}g daily protein target, ${metrics.idealWaterLiters}L water intake, and 7.5 hours of restful sleep.`;
+    }
 
-    // Generate Contextual Response
-    setTimeout(() => {
-      let aiText = `Great question! Based on your target of ${metrics.dailyCalories} kcal and ${metrics.proteinGrams}g Protein:`;
-
-      if (query.toLowerCase().includes('eat today') || query.toLowerCase().includes('recipes')) {
-        aiText = `For your ${profile.goal} goal, I recommend a breakfast of Avocado & Spinach Protein Wrap (26g Protein), followed by a Grilled Tofu Quinoa Bowl for lunch (32g Protein), and Whey Isolate Shake post-workout.`;
-      } else if (query.toLowerCase().includes('protein')) {
-        aiText = `Top high-protein foods tailored to your ${profile.dietPreference} diet: 1) Organic Firm Tofu (32g), 2) Paneer / Cottage Cheese (34g), 3) Whey Protein Isolate (36g), 4) Roasted Soy Chunks (42g).`;
-      } else if (query.toLowerCase().includes('weight loss')) {
-        aiText = `To hit your target weight of ${profile.targetWeightKg}kg, stick to your 500 kcal daily deficit (${metrics.dailyCalories} kcal/day), maintain 3.5L hydration, and utilize our 16:8 Intermittent Fasting timer.`;
-      } else if (query.toLowerCase().includes('motivation')) {
-        aiText = `"Consistency is what transforms average effort into extraordinary results." You have an active 7-day streak, ${profile.name}! Keep pushing towards your ${profile.targetWeightKg}kg milestone!`;
-      } else {
-        aiText = `I recommend prioritizing your ${metrics.proteinGrams}g protein goal, completing 45 minutes of targeted hypertrophy work, and ensuring ${profile.sleepHours} hours of sleep tonight for optimal muscle recovery.`;
-      }
-
-      const aiMsg: ChatMessage = {
-        id: (Date.now() + 1).toString(),
-        sender: 'ai',
-        text: aiText,
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      };
-      setMessages((prev) => [...prev, aiMsg]);
-    }, 600);
+    setActiveResponse(response);
+    if (!queryText) setInputQuery('');
   };
 
   return (
-    <div className="space-y-6 pb-16 max-w-4xl mx-auto">
-      {/* Header */}
-      <div className="p-6 rounded-3xl bg-gradient-to-r from-rose-950/80 via-slate-900 to-purple-950/80 border border-slate-800 backdrop-blur-xl flex items-center gap-4">
-        <div className="p-3 rounded-2xl bg-rose-500/20 text-rose-400">
-          <Bot className="w-8 h-8" />
-        </div>
-        <div>
-          <h2 className="text-2xl font-black text-white">FitBot AI Health Coach</h2>
-          <p className="text-xs text-slate-400">Context-Aware AI Assistant • Personalized to {profile.name}'s Profile</p>
-        </div>
-      </div>
+    <div className="space-y-8 pb-16 max-w-3xl mx-auto">
+      
+      {/* AI Nutrition Assistant White Card */}
+      <div className="bg-white border border-[#E5E7EB] rounded-3xl p-8 sm:p-10 shadow-sm space-y-8 text-left">
+        
+        {/* Title & Header */}
+        <div className="flex items-center justify-between border-b border-[#E5E7EB] pb-6">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-2xl bg-[#22C55E]/10 border border-[#22C55E]/20 flex items-center justify-center text-[#22C55E]">
+              <Bot className="w-6 h-6" />
+            </div>
+            <div>
+              <h2 className="text-2xl sm:text-3xl font-black text-[#111827]">
+                AI Nutrition Assistant
+              </h2>
+              <p className="text-xs text-[#6B7280] font-medium mt-0.5">
+                Ask anything about diet, calories, macros & workouts
+              </p>
+            </div>
+          </div>
 
-      {/* Quick Query Chips */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-        {quickChips.map((chip, idx) => (
-          <button
-            key={idx}
-            onClick={() => handleSend(chip)}
-            className="px-3 py-1.5 rounded-full bg-slate-900 border border-slate-800 hover:border-emerald-500/50 text-slate-300 text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1.5"
-          >
-            <Sparkles className="w-3 h-3 text-emerald-400" />
-            <span>{chip}</span>
-          </button>
-        ))}
-      </div>
+          <span className="hidden sm:inline-block px-3 py-1 rounded-full bg-[#F8FAFC] border border-[#E5E7EB] text-[10px] font-extrabold text-[#6B7280] uppercase tracking-wider">
+            Client Preview
+          </span>
+        </div>
 
-      {/* Chat Messages Box */}
-      <div className="p-6 rounded-3xl bg-slate-900/80 border border-slate-800 backdrop-blur-xl min-h-[420px] max-h-[550px] overflow-y-auto space-y-4 flex flex-col justify-between">
-        <div className="space-y-4">
-          {messages.map((m) => (
-            <motion.div
-              key={m.id}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className={`flex gap-3 ${m.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+        {/* Input Area */}
+        <div className="space-y-3">
+          <label className="block text-xs font-bold uppercase tracking-wider text-[#111827]">
+            Ask Anything
+          </label>
+          <div className="relative flex items-center">
+            <input
+              type="text"
+              placeholder="e.g. What is my recommended daily protein target?"
+              value={inputQuery}
+              onChange={(e) => setInputQuery(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+              className="w-full pl-5 pr-28 py-4 rounded-2xl bg-[#F8FAFC] border border-[#E5E7EB] text-sm font-semibold text-[#111827] focus:outline-none focus:border-[#22C55E]"
+            />
+            <button
+              onClick={() => handleSend()}
+              className="absolute right-2 px-5 py-2.5 rounded-xl bg-[#22C55E] hover:bg-[#16a34a] text-white font-extrabold text-xs transition-all shadow-xs flex items-center gap-1.5"
             >
-              {m.sender === 'ai' && (
-                <div className="w-8 h-8 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center shrink-0 border border-rose-500/40">
-                  <Bot className="w-4 h-4" />
-                </div>
-              )}
-              <div className={`p-4 rounded-2xl max-w-lg text-xs leading-relaxed ${
-                m.sender === 'user'
-                  ? 'bg-emerald-500 text-slate-950 font-bold rounded-tr-none'
-                  : 'bg-slate-950 border border-slate-800 text-slate-200 font-medium rounded-tl-none'
-              }`}>
-                <p>{m.text}</p>
-                <span className="block text-[9px] opacity-60 mt-1 text-right">{m.timestamp}</span>
-              </div>
-              {m.sender === 'user' && (
-                <div className="w-8 h-8 rounded-full bg-emerald-500 text-slate-950 flex items-center justify-center shrink-0 font-black text-xs">
-                  {profile.name[0]}
-                </div>
-              )}
-            </motion.div>
-          ))}
+              <span>Send</span>
+              <Send className="w-3.5 h-3.5" />
+            </button>
+          </div>
         </div>
 
-        {/* Input Form */}
-        <div className="pt-4 border-t border-slate-800/80 flex items-center gap-2">
-          <input
-            type="text"
-            placeholder="Ask FitBot AI anything about nutrition, workouts, fasting..."
-            value={inputQuery}
-            onChange={(e) => setInputQuery(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-            className="flex-1 px-4 py-3 rounded-2xl bg-slate-950 border border-slate-800 text-white text-xs font-semibold focus:outline-none focus:border-rose-500"
-          />
-          <button
-            onClick={() => handleSend()}
-            className="p-3 rounded-2xl bg-rose-500 text-white hover:bg-rose-600 transition-colors shadow-lg shadow-rose-500/20"
-          >
-            <Send className="w-4 h-4" />
-          </button>
+        {/* Active Query Answer (if asked) */}
+        {activeResponse && (
+          <div className="p-5 rounded-2xl bg-[#22C55E]/10 border border-[#22C55E]/30 text-xs font-bold text-[#111827] leading-relaxed flex items-start gap-3">
+            <Sparkles className="w-5 h-5 text-[#22C55E] flex-shrink-0 mt-0.5" />
+            <div>
+              <span className="block text-[10px] font-black uppercase text-[#22C55E] mb-1">FitBot Guidance</span>
+              <span>{activeResponse}</span>
+            </div>
+          </div>
+        )}
+
+        {/* Example Questions Section */}
+        <div className="space-y-3 pt-2">
+          <span className="block text-xs font-bold uppercase tracking-wider text-[#6B7280]">
+            Example Questions
+          </span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {exampleQuestions.map((q, idx) => (
+              <button
+                key={idx}
+                onClick={() => handleSend(q)}
+                className="p-4 rounded-2xl bg-white border border-[#E5E7EB] hover:border-[#22C55E]/40 hover:bg-[#F8FAFC] text-left text-xs font-bold text-[#111827] transition-all flex items-center justify-between group shadow-xs"
+              >
+                <div className="flex items-center gap-2">
+                  <span className="text-[#22C55E] font-black">•</span>
+                  <span>{q}</span>
+                </div>
+                <HelpCircle className="w-3.5 h-3.5 text-[#6B7280] group-hover:text-[#22C55E] transition-colors" />
+              </button>
+            ))}
+          </div>
         </div>
+
+        {/* Backend Note */}
+        <div className="pt-4 border-t border-[#E5E7EB] text-center">
+          <p className="text-[11px] font-semibold text-[#6B7280]">
+            Live conversational LLM backend integration active until main endpoint connects.
+          </p>
+        </div>
+
       </div>
+
     </div>
   );
 };

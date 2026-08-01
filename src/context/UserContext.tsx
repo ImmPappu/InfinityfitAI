@@ -49,7 +49,7 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [profile, setProfile] = useState<UserProfile>(() => {
-    const saved = localStorage.getItem('fitfusion_profile');
+    const saved = localStorage.getItem('infinityfit_profile');
     if (saved) {
       try {
         return JSON.parse(saved);
@@ -70,7 +70,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
     startTime: number | null;
     protocolHours: number;
   }>(() => {
-    const saved = localStorage.getItem('fitfusion_fasting');
+    const saved = localStorage.getItem('infinityfit_fasting');
     if (saved) {
       try { return JSON.parse(saved); } catch (e) { console.error(e); }
     }
@@ -79,7 +79,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Demo logs history
   const [dailyLogs, setDailyLogs] = useState<DailyLog[]>(() => {
-    const saved = localStorage.getItem('fitfusion_logs');
+    const saved = localStorage.getItem('infinityfit_logs');
     if (saved) {
       try { return JSON.parse(saved); } catch (e) { console.error(e); }
     }
@@ -97,15 +97,15 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const metrics = useMemo(() => calculateHealthMetrics(profile), [profile]);
 
   useEffect(() => {
-    localStorage.setItem('fitfusion_profile', JSON.stringify(profile));
+    localStorage.setItem('infinityfit_profile', JSON.stringify(profile));
   }, [profile]);
 
   useEffect(() => {
-    localStorage.setItem('fitfusion_fasting', JSON.stringify(fastingState));
+    localStorage.setItem('infinityfit_fasting', JSON.stringify(fastingState));
   }, [fastingState]);
 
   useEffect(() => {
-    localStorage.setItem('fitfusion_logs', JSON.stringify(dailyLogs));
+    localStorage.setItem('infinityfit_logs', JSON.stringify(dailyLogs));
   }, [dailyLogs]);
 
   const updateProfile = (updates: Partial<UserProfile>) => {

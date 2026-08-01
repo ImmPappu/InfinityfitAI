@@ -2,7 +2,7 @@ import type { Language } from '../types';
 
 export const translations: Record<Language, Record<string, string>> = {
   en: {
-    brandName: "InfinityfitAI",
+    brandName: "InfinityFitAI",
     tagline: "Train Smarter. Eat Better. Live Stronger. ⭐⭐⭐⭐⭐",
     startJourney: "Start Your Journey",
     navHome: "Home",
@@ -84,7 +84,7 @@ export const translations: Record<Language, Record<string, string>> = {
     eatingWindow: "Eating Window Countdown",
   },
   hi: {
-    brandName: "InfinityfitAI",
+    brandName: "InfinityFitAI",
     tagline: "Train Smarter. Eat Better. Live Stronger. ⭐⭐⭐⭐⭐",
     startJourney: "अपनी यात्रा शुरू करें",
     navHome: "होम",
@@ -162,7 +162,7 @@ export const translations: Record<Language, Record<string, string>> = {
     eatingWindow: "खाने की खिड़की समय",
   },
   es: {
-    brandName: "InfinityfitAI",
+    brandName: "InfinityFitAI",
     tagline: "Train Smarter. Eat Better. Live Stronger. ⭐⭐⭐⭐⭐",
     startJourney: "Comenzar Viaje",
     navHome: "Inicio",
@@ -240,7 +240,7 @@ export const translations: Record<Language, Record<string, string>> = {
     eatingWindow: "Ventana de Alimentación",
   },
   fr: {
-    brandName: "InfinityfitAI",
+    brandName: "InfinityFitAI",
     tagline: "Train Smarter. Eat Better. Live Stronger. ⭐⭐⭐⭐⭐",
     startJourney: "Commencer Votre Parcours",
     navHome: "Accueil",
@@ -318,7 +318,7 @@ export const translations: Record<Language, Record<string, string>> = {
     eatingWindow: "Fenêtre d'Alimentation",
   },
   de: {
-    brandName: "InfinityfitAI",
+    brandName: "InfinityFitAI",
     tagline: "Train Smarter. Eat Better. Live Stronger. ⭐⭐⭐⭐⭐",
     startJourney: "Reise Starten",
     navHome: "Startseite",

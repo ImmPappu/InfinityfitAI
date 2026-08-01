@@ -18,6 +18,8 @@ import { AiCoachPage } from './components/ai-coach/AiCoachPage';
 import { CalculatorsHub } from './components/calculators/CalculatorsHub';
 import { SettingsPage } from './components/settings/SettingsPage';
 
+import { PrintableReport } from './components/pdf/PrintableReport';
+
 const MainAppContent: React.FC = () => {
   const { activeTab } = useUser();
 
@@ -49,7 +51,7 @@ const MainAppContent: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-between selection:bg-emerald-500 selection:text-white">
+    <div className="min-h-screen flex flex-col justify-between bg-[#F8FAFC] text-[#111827] selection:bg-[#22C55E] selection:text-white transition-colors duration-200">
       <div>
         <Navbar />
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
@@ -57,6 +59,7 @@ const MainAppContent: React.FC = () => {
         </main>
       </div>
 
+      <PrintableReport />
       <OnboardingModal />
       <Footer />
     </div>

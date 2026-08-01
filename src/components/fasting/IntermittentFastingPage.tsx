@@ -58,15 +58,15 @@ export const IntermittentFastingPage: React.FC = () => {
     <div className="space-y-8 pb-16">
       
       {/* Header Banner */}
-      <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-purple-950/80 via-slate-900 to-indigo-950/80 border border-slate-800 backdrop-blur-xl space-y-3">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-400 text-xs font-bold uppercase tracking-wider">
+      <div className="p-6 sm:p-8 rounded-3xl bg-white border border-[#E5E7EB] shadow-sm space-y-3">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#22C55E]/10 border border-[#22C55E]/30 text-[#22C55E] text-xs font-bold uppercase tracking-wider">
           <Clock className="w-3.5 h-3.5" />
           <span>Clinical Fasting & Autophagy Engine</span>
         </div>
-        <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
+        <h2 className="text-3xl sm:text-4xl font-black text-[#111827] tracking-tight">
           {t('fastingTitle')}
         </h2>
-        <p className="text-xs sm:text-sm text-slate-400 max-w-2xl font-medium">
+        <p className="text-xs sm:text-sm text-[#6B7280] max-w-2xl font-medium">
           Optimize cellular repair, lower resting insulin levels, and accelerate targeted fat oxidation with interactive circular timer tracking.
         </p>
       </div>
@@ -74,9 +74,9 @@ export const IntermittentFastingPage: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
         {/* LIVE CIRCULAR FASTING TIMER */}
-        <div className="lg:col-span-2 p-8 rounded-3xl bg-slate-900/80 border border-slate-800 backdrop-blur-xl flex flex-col items-center justify-center space-y-6 text-center">
+        <div className="lg:col-span-2 p-8 rounded-3xl bg-white border border-[#E5E7EB] shadow-sm flex flex-col items-center justify-center space-y-6 text-center">
           
-          <span className="text-xs font-black uppercase tracking-widest text-slate-400">
+          <span className="text-xs font-black uppercase tracking-widest text-[#6B7280]">
             {fastingState.isFasting ? '🔥 Active Fast In Progress' : 'Fasting Timer Ready'}
           </span>
 
@@ -87,14 +87,14 @@ export const IntermittentFastingPage: React.FC = () => {
                 cx="50%"
                 cy="50%"
                 r="42%"
-                className="stroke-slate-800 fill-none"
+                className="stroke-[#F8FAFC] fill-none"
                 strokeWidth="16"
               />
               <circle
                 cx="50%"
                 cy="50%"
                 r="42%"
-                className="stroke-purple-500 fill-none transition-all duration-1000"
+                className="stroke-[#22C55E] fill-none transition-all duration-1000"
                 strokeWidth="16"
                 strokeDasharray="600"
                 strokeDashoffset={600 - (600 * progressPercent) / 100}
@@ -103,13 +103,13 @@ export const IntermittentFastingPage: React.FC = () => {
             </svg>
 
             <div className="absolute space-y-1">
-              <span className="text-4xl sm:text-5xl font-black text-white font-mono tracking-tight block">
+              <span className="text-4xl sm:text-5xl font-black text-[#111827] font-mono tracking-tight block">
                 {fastingState.isFasting ? formatTime(elapsedSeconds) : `${selectedProtocol.fastingHours}:00:00`}
               </span>
-              <span className="text-xs font-bold text-purple-400 block">
+              <span className="text-xs font-bold text-[#22C55E] block">
                 {progressPercent}% Autophagy Progress
               </span>
-              <span className="text-[10px] text-slate-400 block">
+              <span className="text-[10px] text-[#6B7280] block">
                 Target: {fastingState.protocolHours || selectedProtocol.fastingHours} Hours
               </span>
             </div>
@@ -118,10 +118,10 @@ export const IntermittentFastingPage: React.FC = () => {
           {/* Start / Stop Fasting Button */}
           <button
             onClick={handleToggleFast}
-            className={`px-8 py-4 rounded-2xl text-slate-950 font-black text-sm shadow-xl transition-all flex items-center gap-3 ${
+            className={`px-8 py-4 rounded-2xl font-black text-sm shadow-sm transition-all flex items-center gap-3 ${
               fastingState.isFasting
-                ? 'bg-rose-500 hover:bg-rose-600 text-white shadow-rose-500/20'
-                : 'bg-gradient-to-r from-purple-500 to-indigo-500 text-white shadow-purple-500/25 hover:scale-105'
+                ? 'bg-rose-500 hover:bg-rose-600 text-white'
+                : 'bg-indigo-600 hover:bg-indigo-700 text-white'
             }`}
           >
             {fastingState.isFasting ? (

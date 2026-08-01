@@ -11,14 +11,17 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [language, setLanguageState] = useState<Language>(() => {
-    const saved = localStorage.getItem('fitfusion_lang');
-    return (saved as Language) || 'en';
+  const [language, setLanguage] = useState<Language>(() => {
+    const saved = localStorage.getItem('infinityfit_lang');
+    if (saved && ['en', 'hi', 'te'].includes(saved)) {
+      return saved as Language;
+    }
+    return 'en';
   });
 
-  const setLanguage = (lang: Language) => {
-    setLanguageState(lang);
-    localStorage.setItem('fitfusion_lang', lang);
+  const changeLanguage = (lang: Language) => {
+    setLanguage(lang);
+    localStorage.setItem('infinityfit_lang', lang);
   };
 
   const t = (key: string): string => {
@@ -27,7 +30,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={{ language, setLanguage: changeLanguage, t }}>
       {children}
     </LanguageContext.Provider>
   );

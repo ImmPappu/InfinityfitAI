@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { X, ShoppingBag, ExternalLink, ShieldCheck, Truck, Zap } from 'lucide-react';
+import { X, ShoppingBag, ExternalLink } from 'lucide-react';
 import type { FoodItem } from '../../types';
 
 interface Props {
@@ -10,37 +10,37 @@ interface Props {
 
 export const EcommerceBuyModal: React.FC<Props> = ({ food, onClose }) => {
   const stores = [
-    { name: 'Blinkit', desc: '10 Minute Instant Grocery Delivery', color: 'from-amber-400 to-yellow-500', link: food.storeLinks.blinkit || 'https://blinkit.com' },
-    { name: 'Zepto', desc: '10 Minute Fresh Produce', color: 'from-purple-500 to-indigo-600', link: food.storeLinks.zepto || 'https://zeptonow.com' },
-    { name: 'Instamart', desc: 'Swiggy Quick Grocery', color: 'from-orange-500 to-amber-500', link: food.storeLinks.instamart || 'https://swiggy.com/instamart' },
-    { name: 'BigBasket', desc: 'Organic & Bulk Grocery Mart', color: 'from-emerald-500 to-green-600', link: food.storeLinks.bigbasket || 'https://bigbasket.com' },
-    { name: 'Amazon Fresh', desc: 'Prime Scheduled Delivery', color: 'from-cyan-500 to-blue-600', link: food.storeLinks.amazon || 'https://amazon.com' },
+    { name: 'Blinkit', desc: '10 Minute Instant Grocery Delivery', color: 'bg-[#F97316] text-white', link: food.storeLinks.blinkit || 'https://blinkit.com' },
+    { name: 'Zepto', desc: '10 Minute Fresh Produce', color: 'bg-purple-600 text-white', link: food.storeLinks.zepto || 'https://zeptonow.com' },
+    { name: 'Instamart', desc: 'Swiggy Quick Grocery', color: 'bg-orange-500 text-white', link: food.storeLinks.instamart || 'https://swiggy.com/instamart' },
+    { name: 'BigBasket', desc: 'Organic & Bulk Grocery Mart', color: 'bg-[#06B6D4] text-white', link: food.storeLinks.bigbasket || 'https://bigbasket.com' },
+    { name: 'Amazon Fresh', desc: 'Prime Scheduled Delivery', color: 'bg-[#22C55E] text-white', link: food.storeLinks.amazon || 'https://amazon.com' },
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-2xl overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm overflow-y-auto">
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.95 }}
-        className="relative w-full max-w-lg bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl overflow-hidden my-8"
+        className="relative w-full max-w-lg bg-white border border-[#E5E7EB] rounded-2xl shadow-xl overflow-hidden my-8 text-left text-[#111827]"
       >
         {/* Header */}
-        <div className="px-6 py-5 bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-cyan-500/10 border-b border-slate-800 flex items-center justify-between">
+        <div className="px-6 py-5 bg-[#F8FAFC] border-b border-[#E5E7EB] flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-xl bg-emerald-500/20 text-emerald-400">
+            <div className="p-2 rounded-xl bg-[#22C55E]/10 text-[#22C55E]">
               <ShoppingBag className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-base font-extrabold text-white">
+              <h3 className="text-base font-extrabold text-[#111827]">
                 Buy Ingredients Direct
               </h3>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-[#6B7280]">
                 10-Minute Express Grocery Checkout
               </p>
             </div>
           </div>
-          <button onClick={onClose} className="p-2 text-slate-400 hover:text-white">
+          <button onClick={onClose} className="p-2 text-[#6B7280] hover:text-[#111827] hover:bg-[#E5E7EB] rounded-full transition-colors">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -48,19 +48,19 @@ export const EcommerceBuyModal: React.FC<Props> = ({ food, onClose }) => {
         {/* Product summary card */}
         <div className="p-6 space-y-4 max-h-[60vh] overflow-y-auto">
           
-          <div className="flex items-center gap-4 p-4 rounded-2xl bg-slate-950 border border-slate-800">
+          <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#F8FAFC] border border-[#E5E7EB]">
             <img src={food.image} alt={food.name} className="w-16 h-16 rounded-xl object-cover" />
             <div className="space-y-1">
-              <h4 className="text-sm font-extrabold text-white">{food.name}</h4>
-              <span className="text-xs font-black text-emerald-400">${food.priceEstimate.toFixed(2)} est. kit</span>
-              <p className="text-[10px] text-slate-400">Includes all {food.ingredients.length} required ingredients</p>
+              <h4 className="text-sm font-extrabold text-[#111827]">{food.name}</h4>
+              <span className="text-xs font-black text-[#22C55E]">₹{(food as any).estimatedPriceRs || 180} est. kit</span>
+              <p className="text-[10px] text-[#6B7280]">Includes all {food.ingredients.length} required ingredients</p>
             </div>
           </div>
 
           {/* Quick Stores links */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400">
-              Choose Express Partner Store
+            <h4 className="text-xs font-bold uppercase tracking-wider text-[#6B7280]">
+              Choose Partner Store
             </h4>
 
             {stores.map((s, idx) => (
@@ -69,19 +69,19 @@ export const EcommerceBuyModal: React.FC<Props> = ({ food, onClose }) => {
                 href={s.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between p-4 rounded-2xl bg-slate-950/80 border border-slate-800 hover:border-emerald-500/40 transition-all group"
+                className="flex items-center justify-between p-4 rounded-2xl bg-white border border-[#E5E7EB] hover:border-[#22C55E]/40 hover:bg-[#F8FAFC] transition-all group shadow-xs"
               >
                 <div className="flex items-center gap-3">
-                  <div className={`w-10 h-10 rounded-xl bg-gradient-to-tr ${s.color} text-slate-950 font-black flex items-center justify-center text-xs shadow-md`}>
+                  <div className={`w-10 h-10 rounded-xl ${s.color} font-black flex items-center justify-center text-xs shadow-xs`}>
                     {s.name.slice(0, 2).toUpperCase()}
                   </div>
                   <div>
-                    <h5 className="text-xs font-bold text-white group-hover:text-emerald-400 transition-colors">{s.name}</h5>
-                    <span className="text-[10px] text-slate-400 font-medium">{s.desc}</span>
+                    <h5 className="text-xs font-bold text-[#111827] group-hover:text-[#22C55E] transition-colors">{s.name}</h5>
+                    <span className="text-[10px] text-[#6B7280] font-medium">{s.desc}</span>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 text-xs font-extrabold group-hover:bg-emerald-500 group-hover:text-slate-950 transition-all">
+                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#22C55E]/10 text-[#22C55E] text-xs font-extrabold group-hover:bg-[#22C55E] group-hover:text-white transition-all">
                   <span>Order</span>
                   <ExternalLink className="w-3.5 h-3.5" />
                 </div>

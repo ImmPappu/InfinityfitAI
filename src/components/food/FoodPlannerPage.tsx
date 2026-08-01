@@ -58,28 +58,28 @@ export const FoodPlannerPage: React.FC = () => {
       {buyModalFood && <EcommerceBuyModal food={buyModalFood} onClose={() => setBuyModalFood(null)} />}
 
       {/* Header Banner */}
-      <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-emerald-950/80 via-slate-900 to-cyan-950/80 border border-slate-800 backdrop-blur-xl space-y-4">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold uppercase tracking-wider">
+      <div className="p-6 sm:p-8 rounded-3xl bg-white border border-[#E5E7EB] shadow-sm space-y-4">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#22C55E]/10 border border-[#22C55E]/30 text-[#22C55E] text-xs font-bold uppercase tracking-wider">
           <Sparkles className="w-3.5 h-3.5" />
           <span>AI Precision Diet Planner</span>
         </div>
-        <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
+        <h2 className="text-3xl sm:text-4xl font-black text-[#111827] tracking-tight">
           Nutrient-Dense Culinary Ecosystem
         </h2>
-        <p className="text-xs sm:text-sm text-slate-400 max-w-2xl font-medium">
+        <p className="text-xs sm:text-sm text-[#6B7280] max-w-2xl font-medium">
           Every meal is calculated with full macros, 12 essential micronutrients, intelligent ingredient swaps (Paneer ↔ Tofu), and 10-minute grocery delivery integration.
         </p>
 
         {/* Search & Micro Filters */}
         <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
           <div className="relative w-full sm:flex-1">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-[#6B7280] absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               placeholder="Search recipes, ingredients (e.g. Tofu, Chicken)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-950/90 border border-slate-800 text-xs font-semibold text-white focus:outline-none focus:border-emerald-500"
+              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#F8FAFC] border border-[#E5E7EB] text-xs font-semibold text-[#111827] focus:outline-none focus:border-[#22C55E]"
             />
           </div>
 
@@ -90,8 +90,8 @@ export const FoodPlannerPage: React.FC = () => {
                 onClick={() => setSelectedDiet(diet)}
                 className={`px-3 py-2 rounded-xl text-xs font-extrabold uppercase tracking-wider transition-all ${
                   selectedDiet === diet
-                    ? 'bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/20'
-                    : 'bg-slate-950 text-slate-400 border border-slate-800 hover:text-white'
+                    ? 'bg-[#22C55E] text-white shadow-xs'
+                    : 'bg-[#F8FAFC] text-[#6B7280] border border-[#E5E7EB] hover:text-[#111827]'
                 }`}
               >
                 {diet}
@@ -102,8 +102,8 @@ export const FoodPlannerPage: React.FC = () => {
               onClick={() => setHighProteinOnly(!highProteinOnly)}
               className={`px-3 py-2 rounded-xl text-xs font-extrabold transition-all flex items-center gap-1.5 ${
                 highProteinOnly
-                  ? 'bg-cyan-500 text-slate-950'
-                  : 'bg-slate-950 text-slate-400 border border-slate-800'
+                  ? 'bg-[#06B6D4] text-white'
+                  : 'bg-[#F8FAFC] text-[#6B7280] border border-[#E5E7EB]'
               }`}
             >
               <Flame className="w-3.5 h-3.5" />
@@ -121,8 +121,8 @@ export const FoodPlannerPage: React.FC = () => {
             onClick={() => setSelectedCategory(cat.id)}
             className={`px-4 py-2 rounded-full text-xs font-extrabold whitespace-nowrap transition-all ${
               selectedCategory === cat.id
-                ? 'bg-gradient-to-r from-emerald-500 to-cyan-500 text-slate-950 shadow-lg shadow-emerald-500/20'
-                : 'bg-slate-900/80 text-slate-400 border border-slate-800 hover:text-white'
+                ? 'bg-[#22C55E] text-white shadow-sm'
+                : 'bg-white text-[#6B7280] border border-[#E5E7EB] hover:text-[#111827]'
             }`}
           >
             {cat.label}
@@ -132,107 +132,101 @@ export const FoodPlannerPage: React.FC = () => {
 
       {/* FOOD CARDS GRID */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredFoods.map((food) => (
-          <motion.div
-            key={food.id}
-            layout
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="rounded-3xl bg-slate-900/80 border border-slate-800/80 backdrop-blur-xl overflow-hidden group hover:border-emerald-500/40 transition-all flex flex-col justify-between"
-          >
-            <div>
-              {/* Card Image */}
-              <div className="relative h-48 w-full overflow-hidden">
-                <img
-                  src={food.image}
-                  alt={food.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent" />
+        {filteredFoods.map((food) => {
+          // Food emoji helper
+          const getEmoji = (name: string) => {
+            if (name.toLowerCase().includes('chicken')) return '🍗';
+            if (name.toLowerCase().includes('paneer')) return '🧀';
+            if (name.toLowerCase().includes('tofu') || name.toLowerCase().includes('salad')) return '🥗';
+            if (name.toLowerCase().includes('oat') || name.toLowerCase().includes('pancake')) return '🥞';
+            if (name.toLowerCase().includes('egg')) return '🥚';
+            if (name.toLowerCase().includes('fish') || name.toLowerCase().includes('salmon')) return '🐟';
+            return '🍲';
+          };
 
-                <span className="absolute top-3 left-3 px-3 py-1 rounded-full bg-slate-950/80 border border-slate-800 text-emerald-400 text-[10px] font-black uppercase tracking-wider backdrop-blur-md">
-                  {food.dietType.toUpperCase()}
-                </span>
-
-                <span className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 text-[10px] font-black backdrop-blur-md flex items-center gap-1">
-                  <Star className="w-3 h-3 fill-amber-400" />
-                  <span>{food.healthyRating}/10</span>
-                </span>
-              </div>
-
-              {/* Card Content */}
-              <div className="p-5 space-y-4">
-                <div>
-                  <h3 className="text-lg font-black text-white group-hover:text-emerald-400 transition-colors">
-                    {food.name}
+          return (
+            <motion.div
+              key={food.id}
+              layout
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="rounded-3xl bg-white border border-[#E5E7EB] shadow-sm overflow-hidden group hover:border-[#22C55E]/40 hover:shadow-md transition-all flex flex-col justify-between"
+            >
+              <div>
+                {/* Title with Emoji Header */}
+                <div className="p-4 pb-3 border-b border-[#E5E7EB] flex items-center justify-between">
+                  <h3 className="text-lg font-black text-[#111827] flex items-center gap-2">
+                    <span>{getEmoji(food.name)}</span>
+                    <span>{food.name}</span>
                   </h3>
-                  <span className="text-[11px] font-bold text-slate-400 flex items-center gap-2 mt-1">
-                    <Clock className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>{food.cookingTime} prep • {food.servingSize}</span>
+                  <span className="px-2.5 py-1 rounded-full bg-[#22C55E]/10 text-[#22C55E] text-[10px] font-black uppercase">
+                    {food.dietType}
                   </span>
                 </div>
 
-                {/* Macros Grid */}
-                <div className="grid grid-cols-4 gap-2 p-3 rounded-2xl bg-slate-950 border border-slate-800/80 text-center text-[10px] font-bold">
-                  <div>
-                    <span className="text-slate-400 block">CALORIES</span>
-                    <span className="text-white text-xs font-black">{food.calories}</span>
-                  </div>
-                  <div>
-                    <span className="text-emerald-400 block">PROTEIN</span>
-                    <span className="text-emerald-400 text-xs font-black">{food.protein}g</span>
-                  </div>
-                  <div>
-                    <span className="text-cyan-400 block">CARBS</span>
-                    <span className="text-cyan-400 text-xs font-black">{food.carbs}g</span>
-                  </div>
-                  <div>
-                    <span className="text-purple-400 block">FAT</span>
-                    <span className="text-purple-400 text-xs font-black">{food.fat}g</span>
-                  </div>
+                {/* Large Food Image */}
+                <div className="relative h-60 sm:h-64 w-full overflow-hidden">
+                  <img
+                    src={food.image}
+                    alt={food.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+
+                  <span className="absolute bottom-3 left-3 px-3 py-1 rounded-full bg-white/90 border border-[#E5E7EB] text-[#111827] text-xs font-extrabold backdrop-blur-md">
+                    {food.cookingTime} prep • {food.servingSize}
+                  </span>
                 </div>
 
-                {/* Key Micros */}
-                <div className="flex items-center justify-between text-[11px] text-slate-400 font-semibold px-1">
-                  <span>Vit C: {food.vitC}mg</span>
-                  <span>Iron: {food.iron}mg</span>
-                  <span>Calcium: {food.calcium}mg</span>
+                {/* Protein, Calories, Price Metrics */}
+                <div className="p-5 space-y-4">
+                  <div className="grid grid-cols-3 gap-2 p-3 rounded-2xl bg-[#F8FAFC] border border-[#E5E7EB] text-center text-xs font-bold">
+                    <div>
+                      <span className="text-[#22C55E] block text-[10px] uppercase font-bold">PROTEIN</span>
+                      <span className="text-[#22C55E] text-sm font-black">{food.protein}g</span>
+                    </div>
+                    <div>
+                      <span className="text-[#111827] block text-[10px] uppercase font-bold">CALORIES</span>
+                      <span className="text-[#111827] text-sm font-black">{food.calories}</span>
+                    </div>
+                    <div>
+                      <span className="text-[#F97316] block text-[10px] uppercase font-bold">PRICE</span>
+                      <span className="text-[#F97316] text-sm font-black">₹{(food as any).estimatedPriceRs || 180}</span>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Card Action Buttons Footer */}
-            <div className="p-5 pt-0 space-y-2 border-t border-slate-800/40 mt-2">
-              <div className="grid grid-cols-2 gap-2">
-                <button
-                  onClick={() => setAltModalFood(food)}
-                  className="px-3 py-2 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-800 text-slate-300 text-[11px] font-extrabold flex items-center justify-center gap-1.5 transition-all"
-                >
-                  <RefreshCw className="w-3.5 h-3.5 text-cyan-400" />
-                  <span>Swap Alt</span>
-                </button>
-
-                <button
-                  onClick={() => setRecipeModalFood(food)}
-                  className="px-3 py-2 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-800 text-slate-300 text-[11px] font-extrabold flex items-center justify-center gap-1.5 transition-all"
-                >
-                  <ChefHat className="w-3.5 h-3.5 text-purple-400" />
-                  <span>Recipe</span>
-                </button>
+              {/* Grocery Quick Buy Buttons (Amazon, Blinkit, BigBasket) */}
+              <div className="p-5 pt-0 space-y-2 border-t border-[#E5E7EB] mt-2">
+                <span className="block text-[10px] font-bold uppercase tracking-wider text-[#6B7280]">
+                  Order Raw Ingredients
+                </span>
+                <div className="grid grid-cols-3 gap-2">
+                  <button
+                    onClick={() => setBuyModalFood(food)}
+                    className="py-2.5 px-2 rounded-xl bg-[#F8FAFC] hover:bg-[#22C55E] hover:text-white border border-[#E5E7EB] text-[#111827] font-black text-xs transition-all text-center shadow-xs"
+                  >
+                    Amazon
+                  </button>
+                  <button
+                    onClick={() => setBuyModalFood(food)}
+                    className="py-2.5 px-2 rounded-xl bg-[#F8FAFC] hover:bg-[#F97316] hover:text-white border border-[#E5E7EB] text-[#111827] font-black text-xs transition-all text-center shadow-xs"
+                  >
+                    Blinkit
+                  </button>
+                  <button
+                    onClick={() => setBuyModalFood(food)}
+                    className="py-2.5 px-2 rounded-xl bg-[#F8FAFC] hover:bg-[#06B6D4] hover:text-white border border-[#E5E7EB] text-[#111827] font-black text-xs transition-all text-center shadow-xs"
+                  >
+                    BigBasket
+                  </button>
+                </div>
               </div>
 
-              {/* Ecommerce Buy Now Button */}
-              <button
-                onClick={() => setBuyModalFood(food)}
-                className="w-full py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-500 text-slate-950 font-black text-xs shadow-md shadow-emerald-500/20 hover:scale-[1.02] transition-transform flex items-center justify-center gap-2"
-              >
-                <ShoppingBag className="w-4 h-4 fill-slate-950" />
-                <span>Buy Ingredients (Blinkit/Zepto)</span>
-              </button>
-            </div>
-
-          </motion.div>
-        ))}
+            </motion.div>
+          );
+        })}
       </div>
     </div>
   );
