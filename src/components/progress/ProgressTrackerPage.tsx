@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import { 
   LineChart as LineChartIcon, 
   Award, 
-  Plus, 
-  Scale, 
-  CheckCircle2
+  Plus
 } from 'lucide-react';
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
 import { useUser } from '../../context/UserContext';
@@ -16,7 +14,7 @@ export const ProgressTrackerPage: React.FC = () => {
   const [weightInput, setWeightInput] = useState(profile.weightKg.toString());
   const [waterInput, setWaterInput] = useState(profile.waterIntakeLiters.toString());
   const [caloriesInput, setCaloriesInput] = useState(metrics.dailyCalories.toString());
-  const [sleepInput, setSleepInput] = useState(profile.sleepHours.toString());
+  const [sleepInput] = useState(profile.sleepHours.toString());
   const [moodInput, setMoodInput] = useState<'Awesome' | 'Good' | 'Neutral' | 'Tired'>('Awesome');
 
   const handleQuickLog = (e: React.FormEvent) => {

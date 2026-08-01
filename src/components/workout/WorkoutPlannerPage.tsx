@@ -2,13 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Dumbbell, 
-  Flame, 
-  Clock, 
-  Target, 
-  CheckCircle2, 
-  Sparkles, 
-  Activity,
-  Layers
+  CheckCircle2
 } from 'lucide-react';
 import { mockExerciseItems } from '../../data/mockData';
 

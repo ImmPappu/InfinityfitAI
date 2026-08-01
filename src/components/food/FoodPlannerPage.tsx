@@ -1,21 +1,12 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { 
-  Utensils, 
   Search, 
-  Filter, 
   Flame, 
-  Clock, 
-  ChefHat, 
-  ShoppingBag, 
-  RefreshCw, 
-  Sparkles, 
-  Star,
-  CheckCircle2,
-  DollarSign
+  Sparkles
 } from 'lucide-react';
 import { mockFoodItems } from '../../data/mockData';
-import type { FoodItem, DietPreference } from '../../types';
+import type { FoodItem } from '../../types';
 import { RecipeModal } from './RecipeModal';
 import { FoodAlternativesModal } from './FoodAlternativesModal';
 import { EcommerceBuyModal } from './EcommerceBuyModal';

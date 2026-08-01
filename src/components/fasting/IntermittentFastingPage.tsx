@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { 
   Clock, 
   Play, 
   Square, 
   Droplets, 
-  CheckCircle2, 
-  AlertCircle, 
-  Sparkles, 
-  Flame,
   ShieldCheck
 } from 'lucide-react';
 import { useUser } from '../../context/UserContext';
