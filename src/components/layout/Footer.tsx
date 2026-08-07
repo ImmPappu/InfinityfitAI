@@ -116,10 +116,15 @@ export const Footer: React.FC = () => {
         {/* Bottom copyright line */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-[#6B7280] gap-4">
           <p>© {new Date().getFullYear()} InfinityFitAI Inc. All rights reserved.</p>
-          <div className="flex items-center gap-1">
-            <span>Engineered with</span>
-            <Heart className="w-3.5 h-3.5 text-[#F97316] fill-[#F97316] inline" />
-            <span>for health & longevity</span>
+          <div className="flex flex-col sm:items-end items-center gap-1">
+            <div className="flex items-center gap-1">
+              <span>Engineered with</span>
+              <Heart className="w-3.5 h-3.5 text-[#F97316] fill-[#F97316] inline" />
+              <span>for health & longevity</span>
+            </div>
+            <p className="text-xs font-bold text-[#111827]">
+              Developed by <span className="text-[#22C55E]">ImmPappu</span>
+            </p>
           </div>
         </div>
       </div>

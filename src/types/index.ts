@@ -6,7 +6,7 @@ export type DietPreference = 'veg' | 'non-veg' | 'vegan';
 export type WorkoutExperience = 'beginner' | 'intermediate' | 'advanced';
 export type HealthCondition = 'diabetes' | 'blood_pressure' | 'pcos' | 'thyroid' | 'none';
 export type FoodAllergy = 'nuts' | 'dairy' | 'gluten' | 'soy' | 'seafood' | 'none';
-export type Language = 'en' | 'hi' | 'es' | 'fr' | 'de';
+export type Language = 'en' | 'hi';
 export type UnitSystem = 'metric' | 'imperial';
 
 export interface UserProfile {
@@ -107,6 +107,8 @@ export interface ExerciseItem {
   id: string;
   title: string;
   category: 'weight_loss' | 'weight_gain' | 'muscle_building' | 'fat_loss' | 'home' | 'gym';
+  location: 'gym' | 'home';
+  goalType: 'weight_gain' | 'weight_loss' | 'general';
   illustration: string;
   targetedMuscles: string[];
   sets: number;

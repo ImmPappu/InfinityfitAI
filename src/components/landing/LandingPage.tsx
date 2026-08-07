@@ -13,9 +13,11 @@ import {
   Zap
 } from 'lucide-react';
 import { useUser } from '../../context/UserContext';
+import { useLanguage } from '../../context/LanguageContext';
 
 export const LandingPage: React.FC = () => {
   const { openOnboarding, setActiveTab } = useUser();
+  const { t } = useLanguage();
   
   // Interactive BMI State on Landing Page
   const [bmiHeightCm, setBmiHeightCm] = useState<number>(175);
@@ -97,16 +99,15 @@ export const LandingPage: React.FC = () => {
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-[#111827] tracking-tight leading-[1.15]">
-                Transform Your Health <br />
-                with <span className="text-[#22C55E]">InfinityFitAI</span>
+                {t('heroTitle')}
               </h1>
 
               <div className="space-y-3 pt-2">
                 {[
-                  'Personalized nutrition.',
-                  'AI meal planning.',
-                  'Workout guidance.',
-                  'BMI calculator.'
+                  t('heroSubtitle'),
+                  t('mealPlanner'),
+                  t('workoutPlanner'),
+                  t('bmiCalculator')
                 ].map((item, idx) => (
                   <div key={idx} className="flex items-center gap-3">
                     <div className="w-5 h-5 rounded-full bg-[#22C55E]/15 flex items-center justify-center text-[#22C55E] flex-shrink-0">
@@ -122,7 +123,7 @@ export const LandingPage: React.FC = () => {
                   onClick={openOnboarding}
                   className="px-9 py-4 rounded-full bg-[#22C55E] hover:bg-[#16a34a] text-white font-black text-sm shadow-sm transition-all flex items-center gap-3 group"
                 >
-                  <span>Get Started</span>
+                  <span>{t('startJourney')}</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>

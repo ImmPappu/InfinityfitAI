@@ -2,19 +2,21 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import { useUser } from '../../context/UserContext';
+import { useLanguage } from '../../context/LanguageContext';
 import { LanguageSelector } from './LanguageSelector';
 import { InfinityLogo } from '../common/InfinityLogo';
 
 export const Navbar: React.FC = () => {
   const { activeTab, setActiveTab, openOnboarding } = useUser();
+  const { t } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Requested simple navigation list
+  // Dynamic translated navigation list
   const navItems = [
-    { id: 'home', label: 'Home' },
-    { id: 'meals', label: 'Meal Planner' },
-    { id: 'workouts', label: 'Workout' },
-    { id: 'aicoach', label: 'AI Coach' },
+    { id: 'home', label: t('navHome') },
+    { id: 'meals', label: t('navMeals') },
+    { id: 'workouts', label: t('navWorkouts') },
+    { id: 'aicoach', label: t('navAiCoach') },
   ];
 
   const handleNavClick = (id: string) => {
