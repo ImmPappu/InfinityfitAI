@@ -12,23 +12,12 @@ export const Navbar: React.FC = () => {
   // Requested simple navigation list
   const navItems = [
     { id: 'home', label: 'Home' },
-    { id: 'features', label: 'Features' },
     { id: 'meals', label: 'Meal Planner' },
     { id: 'workouts', label: 'Workout' },
     { id: 'aicoach', label: 'AI Coach' },
-    { id: 'pricing', label: 'Pricing' },
   ];
 
   const handleNavClick = (id: string) => {
-    if (id === 'features' || id === 'pricing') {
-      setActiveTab('home');
-      setMobileMenuOpen(false);
-      setTimeout(() => {
-        const el = document.getElementById(id);
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
-      return;
-    }
     setActiveTab(id);
     setMobileMenuOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });

@@ -124,14 +124,17 @@ export const FoodPlannerPage: React.FC = () => {
       {/* FOOD CARDS GRID */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredFoods.map((food) => {
-          // Food emoji helper
           const getEmoji = (name: string) => {
-            if (name.toLowerCase().includes('chicken')) return '🍗';
-            if (name.toLowerCase().includes('paneer')) return '🧀';
-            if (name.toLowerCase().includes('tofu') || name.toLowerCase().includes('salad')) return '🥗';
-            if (name.toLowerCase().includes('oat') || name.toLowerCase().includes('pancake')) return '🥞';
-            if (name.toLowerCase().includes('egg')) return '🥚';
-            if (name.toLowerCase().includes('fish') || name.toLowerCase().includes('salmon')) return '🐟';
+            const lower = name.toLowerCase();
+            if (lower.includes('chicken')) return '🍗';
+            if (lower.includes('paneer') || lower.includes('cheese')) return '🧀';
+            if (lower.includes('tofu') || lower.includes('salad')) return '🥗';
+            if (lower.includes('oat') || lower.includes('pancake')) return '🥞';
+            if (lower.includes('egg') || lower.includes('bhurji')) return '🥚';
+            if (lower.includes('fish') || lower.includes('salmon')) return '🐟';
+            if (lower.includes('soya') || lower.includes('soy')) return '🫘';
+            if (lower.includes('dal') || lower.includes('chana') || lower.includes('curry')) return '🍲';
+            if (lower.includes('lassi') || lower.includes('yogurt') || lower.includes('smoothie')) return '🥤';
             return '🍲';
           };
 
@@ -169,9 +172,9 @@ export const FoodPlannerPage: React.FC = () => {
                   </span>
                 </div>
 
-                {/* Protein, Calories, Price Metrics */}
+                {/* Protein and Calories Metrics */}
                 <div className="p-5 space-y-4">
-                  <div className="grid grid-cols-3 gap-2 p-3 rounded-2xl bg-[#F8FAFC] border border-[#E5E7EB] text-center text-xs font-bold">
+                  <div className="grid grid-cols-2 gap-2 p-3 rounded-2xl bg-[#F8FAFC] border border-[#E5E7EB] text-center text-xs font-bold">
                     <div>
                       <span className="text-[#22C55E] block text-[10px] uppercase font-bold">PROTEIN</span>
                       <span className="text-[#22C55E] text-sm font-black">{food.protein}g</span>
@@ -179,10 +182,6 @@ export const FoodPlannerPage: React.FC = () => {
                     <div>
                       <span className="text-[#111827] block text-[10px] uppercase font-bold">CALORIES</span>
                       <span className="text-[#111827] text-sm font-black">{food.calories}</span>
-                    </div>
-                    <div>
-                      <span className="text-[#F97316] block text-[10px] uppercase font-bold">PRICE</span>
-                      <span className="text-[#F97316] text-sm font-black">₹{(food as any).estimatedPriceRs || 180}</span>
                     </div>
                   </div>
                 </div>

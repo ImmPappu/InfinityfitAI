@@ -385,28 +385,53 @@ export const LandingPage: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
             {
-              name: 'Chicken Breast Bowl',
+              name: 'Indian Kadai Chicken & Rice',
               emoji: '🍗',
-              protein: '34g',
-              calories: '380',
-              price: '₹220',
-              image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=800&auto=format&fit=crop'
+              protein: '52g',
+              calories: '570',
+              image: 'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?q=80&w=800&auto=format&fit=crop'
             },
             {
-              name: 'Paneer Tikka Salad',
+              name: 'Palak Paneer & Multigrain Roti',
               emoji: '🧀',
-              protein: '28g',
-              calories: '350',
-              price: '₹190',
-              image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=800&auto=format&fit=crop'
+              protein: '36g',
+              calories: '510',
+              image: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=800&auto=format&fit=crop'
             },
             {
-              name: 'Tofu Quinoa Bowl',
-              emoji: '🥗',
+              name: 'Spicy Soya Chunks Sukka',
+              emoji: '🫘',
+              protein: '46g',
+              calories: '480',
+              image: 'https://images.unsplash.com/photo-1585937421612-70a008356fbe?q=80&w=800&auto=format&fit=crop'
+            },
+            {
+              name: 'Desi Masala Egg Bhurji',
+              emoji: '🥚',
+              protein: '30g',
+              calories: '410',
+              image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=800&auto=format&fit=crop'
+            },
+            {
+              name: 'Greek Yogurt Lassi & Makhana',
+              emoji: '🥤',
               protein: '26g',
-              calories: '320',
-              price: '₹170',
-              image: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=800&auto=format&fit=crop'
+              calories: '270',
+              image: '/greek_yogurt_lassi_makhana.png'
+            },
+            {
+              name: 'Pan-Seared Salmon & Veggies',
+              emoji: '🐟',
+              protein: '42g',
+              calories: '540',
+              image: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?q=80&w=800&auto=format&fit=crop'
+            },
+            {
+              name: 'Tadka Moong Dal & Quinoa',
+              emoji: '🍲',
+              protein: '28g',
+              calories: '430',
+              image: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?q=80&w=800&auto=format&fit=crop'
             }
           ].map((meal, idx) => (
             <div key={idx} className="bg-white border border-[#E5E7EB] rounded-3xl shadow-sm overflow-hidden flex flex-col justify-between text-left">
@@ -423,7 +448,7 @@ export const LandingPage: React.FC = () => {
                 </div>
 
                 <div className="p-4">
-                  <div className="grid grid-cols-3 gap-2 p-3 rounded-2xl bg-[#F8FAFC] border border-[#E5E7EB] text-center text-xs font-bold">
+                  <div className="grid grid-cols-2 gap-2 p-3 rounded-2xl bg-[#F8FAFC] border border-[#E5E7EB] text-center text-xs font-bold">
                     <div>
                       <span className="text-[#22C55E] block text-[10px] uppercase">Protein</span>
                       <span className="text-[#22C55E] font-black">{meal.protein}</span>
@@ -431,10 +456,6 @@ export const LandingPage: React.FC = () => {
                     <div>
                       <span className="text-[#111827] block text-[10px] uppercase">Calories</span>
                       <span className="text-[#111827] font-black">{meal.calories}</span>
-                    </div>
-                    <div>
-                      <span className="text-[#F97316] block text-[10px] uppercase">Price</span>
-                      <span className="text-[#F97316] font-black">{meal.price}</span>
                     </div>
                   </div>
                 </div>
