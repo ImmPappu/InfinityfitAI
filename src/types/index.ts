@@ -49,6 +49,10 @@ export interface HealthCalculations {
   fiberGrams: number;
   sugarLimitGrams: number;
   sodiumLimitMg: number;
+  // Macro ratios used
+  proteinPerKg: number;
+  fatPercentage: number;
+  carbPercentage: number;
   // Micronutrients
   calciumMg: number;
   ironMg: number;
@@ -59,6 +63,12 @@ export interface HealthCalculations {
   magnesiumMg: number;
   potassiumMg: number;
   omega3Grams: number;
+  // Goal timeline
+  goalTimelineWeeks: number;
+  goalTimelineDate: string;
+  weeklyWeightChangeKg: number;
+  // Personalized tips
+  healthTips: string[];
 }
 
 export interface FoodItem {

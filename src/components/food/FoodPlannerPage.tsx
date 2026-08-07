@@ -1,19 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Search, 
   Flame, 
-  Sparkles
+  Sparkles,
+  Target
 } from 'lucide-react';
 import { mockFoodItems } from '../../data/mockData';
 import type { FoodItem } from '../../types';
 import { RecipeModal } from './RecipeModal';
 import { FoodAlternativesModal } from './FoodAlternativesModal';
 import { EcommerceBuyModal } from './EcommerceBuyModal';
+import { useUser } from '../../context/UserContext';
 
 export const FoodPlannerPage: React.FC = () => {
+  const { profile, metrics } = useUser();
+
+  // Auto-set diet filter based on user's diet preference
+  const defaultDiet = (): string => {
+    if (profile.dietPreference === 'veg') return 'veg';
+    if (profile.dietPreference === 'vegan') return 'vegan';
+    return 'all'; // non-veg users see everything
+  };
+
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [selectedDiet, setSelectedDiet] = useState<string>('all');
+  const [selectedDiet, setSelectedDiet] = useState<string>(defaultDiet);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [highProteinOnly, setHighProteinOnly] = useState<boolean>(false);
 
@@ -32,13 +43,30 @@ export const FoodPlannerPage: React.FC = () => {
     { id: 'post_workout', label: 'Post-Workout' },
   ];
 
-  const filteredFoods = mockFoodItems.filter((food) => {
-    if (selectedCategory !== 'all' && food.category !== selectedCategory) return false;
-    if (selectedDiet !== 'all' && food.dietType !== selectedDiet) return false;
-    if (highProteinOnly && food.protein < 25) return false;
-    if (searchQuery && !food.name.toLowerCase().includes(searchQuery.toLowerCase())) return false;
-    return true;
-  });
+  // Filter and sort meals dynamically based on user profile
+  const filteredFoods = useMemo(() => {
+    let foods = mockFoodItems.filter((food) => {
+      if (selectedCategory !== 'all' && food.category !== selectedCategory) return false;
+      if (selectedDiet !== 'all' && food.dietType !== selectedDiet) return false;
+      if (highProteinOnly && food.protein < 25) return false;
+      if (searchQuery && !food.name.toLowerCase().includes(searchQuery.toLowerCase())) return false;
+      return true;
+    });
+
+    // Sort by goal relevance:
+    // - Weight loss: lower calorie meals first
+    // - Weight gain: higher protein meals first
+    // - Maintain: balanced (by health rating)
+    if (profile.goal === 'lose') {
+      foods = [...foods].sort((a, b) => a.calories - b.calories);
+    } else if (profile.goal === 'gain') {
+      foods = [...foods].sort((a, b) => b.protein - a.protein);
+    } else {
+      foods = [...foods].sort((a, b) => b.healthyRating - a.healthyRating);
+    }
+
+    return foods;
+  }, [selectedCategory, selectedDiet, highProteinOnly, searchQuery, profile.goal]);
 
   return (
     <div className="space-y-8 pb-16">
@@ -47,6 +75,16 @@ export const FoodPlannerPage: React.FC = () => {
       {recipeModalFood && <RecipeModal food={recipeModalFood} onClose={() => setRecipeModalFood(null)} />}
       {altModalFood && <FoodAlternativesModal food={altModalFood} onClose={() => setAltModalFood(null)} />}
       {buyModalFood && <EcommerceBuyModal food={buyModalFood} onClose={() => setBuyModalFood(null)} />}
+
+      {/* Personalized Daily Target Banner */}
+      <div className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-[#ECFDF5] border border-[#22C55E]/20 text-xs font-semibold text-[#111827]">
+        <Target className="w-4 h-4 text-[#22C55E]" />
+        <span>
+          Your Daily Target: <strong className="text-[#22C55E]">{metrics.dailyCalories} kcal</strong> • <strong className="text-[#06B6D4]">{metrics.proteinGrams}g Protein</strong> • <strong className="text-[#F97316]">{metrics.carbGrams}g Carbs</strong> • <strong className="text-[#8B5CF6]">{metrics.fatGrams}g Fat</strong>
+          {profile.goal === 'lose' && ' — Sorted by lowest calories first'}
+          {profile.goal === 'gain' && ' — Sorted by highest protein first'}
+        </span>
+      </div>
 
       {/* Header Banner */}
       <div className="p-6 sm:p-8 rounded-3xl bg-white border border-[#E5E7EB] shadow-sm space-y-4">

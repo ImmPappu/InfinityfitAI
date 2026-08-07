@@ -41,7 +41,7 @@ export const PrintableReport: React.FC = () => {
           </div>
 
           {/* 2. User Details */}
-          <div className="grid grid-cols-4 gap-3 bg-slate-50 p-3 rounded-xl border border-slate-200 text-xs">
+          <div className="grid grid-cols-5 gap-3 bg-slate-50 p-3 rounded-xl border border-slate-200 text-xs">
             <div>
               <span className="block text-slate-400 font-extrabold uppercase text-[9px]">Client Name</span>
               <span className="font-extrabold text-slate-900">{profile.name}</span>
@@ -57,6 +57,10 @@ export const PrintableReport: React.FC = () => {
             <div>
               <span className="block text-slate-400 font-extrabold uppercase text-[9px]">Goal / Target</span>
               <span className="font-extrabold text-[#22C55E] uppercase">{profile.goal} ({profile.targetWeightKg}kg)</span>
+            </div>
+            <div>
+              <span className="block text-slate-400 font-extrabold uppercase text-[9px]">Activity / Diet</span>
+              <span className="font-extrabold text-slate-900 capitalize">{profile.activityLevel} / {profile.dietPreference}</span>
             </div>
           </div>
 
@@ -161,11 +165,51 @@ export const PrintableReport: React.FC = () => {
             </table>
           </div>
 
+          {/* Goal Timeline */}
+          {metrics.goalTimelineWeeks > 0 && (
+            <div className="p-3 rounded-xl border border-purple-200 bg-purple-50/50">
+              <h3 className="text-xs font-extrabold text-slate-900 border-b border-purple-200/60 pb-1.5 mb-2 uppercase tracking-wider">
+                Goal Timeline Estimation
+              </h3>
+              <div className="grid grid-cols-3 gap-2 text-xs">
+                <div className="p-2 bg-white border border-slate-200 rounded-lg">
+                  <span className="block font-bold text-purple-700 text-[9px] uppercase">Estimated Duration</span>
+                  <span className="text-base font-black text-slate-900">{metrics.goalTimelineWeeks} weeks</span>
+                </div>
+                <div className="p-2 bg-white border border-slate-200 rounded-lg">
+                  <span className="block font-bold text-purple-700 text-[9px] uppercase">Weekly Rate</span>
+                  <span className="text-base font-black text-slate-900">{metrics.weeklyWeightChangeKg} kg/week</span>
+                </div>
+                <div className="p-2 bg-white border border-slate-200 rounded-lg">
+                  <span className="block font-bold text-purple-700 text-[9px] uppercase">Target Date</span>
+                  <span className="text-base font-black text-slate-900">{metrics.goalTimelineDate}</span>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Health Tips */}
+          {metrics.healthTips && metrics.healthTips.length > 0 && (
+            <div>
+              <h3 className="text-xs font-extrabold text-slate-900 border-b border-slate-200 pb-1.5 mb-2 uppercase tracking-wider">
+                Personalized Health Recommendations
+              </h3>
+              <div className="space-y-1">
+                {metrics.healthTips.slice(0, 3).map((tip, i) => (
+                  <div key={i} className="flex items-start gap-2 text-[10px] text-slate-700 leading-snug">
+                    <span className="font-black text-[#22C55E] mt-0.5">{i + 1}.</span>
+                    <span>{tip}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
         </div>
 
         {/* Footer Stamp */}
         <div className="border-t border-slate-200 pt-3 text-center text-[9px] text-slate-400 font-bold">
-          InfinityFitAI Engine • Personal Biometric Health Blueprint • Confidential
+          InfinityFitAI Engine • Personal Biometric Health Blueprint • Confidential • Developed by ImmPappu
         </div>
       </div>
     </div>

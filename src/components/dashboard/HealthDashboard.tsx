@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import {
   Flame,
   Droplets,
-  Award,
+  CalendarClock,
   FileText,
   Scale,
   Sparkles,
   CheckCircle2,
   ArrowRight,
-  Utensils
+  Utensils,
+  Lightbulb
 } from 'lucide-react';
 import { useUser } from '../../context/UserContext';
 import { useLanguage } from '../../context/LanguageContext';
@@ -17,10 +18,25 @@ import { exportHealthReportPdf } from '../../utils/pdfExporter';
 import { PrintableReport } from '../pdf/PrintableReport';
 
 export const HealthDashboard: React.FC = () => {
-  const { profile, metrics, addLogEntry, openOnboarding, setActiveTab } = useUser();
+  const { profile, metrics, addLogEntry, openOnboarding, setActiveTab, dailyLogs } = useUser();
   const { t } = useLanguage();
 
   const [logNotice, setLogNotice] = useState<string | null>(null);
+
+  // Compute dynamic ring percentages from latest daily log vs. metric targets
+  const ringPercentages = useMemo(() => {
+    const latestLog = dailyLogs.length > 0 ? dailyLogs[dailyLogs.length - 1] : null;
+    const calPercent = latestLog && metrics.dailyCalories > 0
+      ? Math.min(100, Math.round((latestLog.caloriesConsumed / metrics.dailyCalories) * 100))
+      : 0;
+    const proteinPercent = latestLog && metrics.proteinGrams > 0
+      ? Math.min(100, Math.round((latestLog.proteinGrams / metrics.proteinGrams) * 100))
+      : 0;
+    const waterPercent = latestLog && metrics.idealWaterLiters > 0
+      ? Math.min(100, Math.round((latestLog.waterLiters / metrics.idealWaterLiters) * 100))
+      : 0;
+    return { calPercent, proteinPercent, waterPercent };
+  }, [dailyLogs, metrics]);
 
   const handleAddWater = (liters: number) => {
     addLogEntry({ waterLiters: (profile.waterIntakeLiters || 0) + liters });
@@ -167,27 +183,38 @@ export const HealthDashboard: React.FC = () => {
           </div>
         </div>
 
-        {/* Card 4: Day Streak (Light Purple #F5F3FF) */}
+        {/* Card 4: Goal Timeline (Light Purple #F5F3FF) */}
         <div 
-          onClick={() => setActiveTab('progress')}
-          className="p-6 rounded-3xl bg-[#F5F3FF] border border-[#8B5CF6]/20 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer space-y-3 flex flex-col justify-between"
+          className="p-6 rounded-3xl bg-[#F5F3FF] border border-[#8B5CF6]/20 shadow-xs space-y-3 flex flex-col justify-between"
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-extrabold uppercase tracking-wider text-[#6B7280]">Fitness Streak</span>
+            <span className="text-xs font-extrabold uppercase tracking-wider text-[#6B7280]">Goal Timeline</span>
             <div className="p-2 rounded-xl bg-white/80 border border-[#8B5CF6]/20 text-[#8B5CF6]">
-              <Award className="w-4 h-4" />
+              <CalendarClock className="w-4 h-4" />
             </div>
           </div>
           <div>
-            <div className="text-4xl font-black text-[#111827]">7 <span className="text-sm font-bold text-[#6B7280]">Days</span></div>
-            <div className="mt-1 flex items-center gap-1.5 text-xs font-extrabold text-[#8B5CF6]">
-              <span>🏆</span>
-              <span>Active Streak</span>
-            </div>
+            {metrics.goalTimelineWeeks > 0 ? (
+              <>
+                <div className="text-4xl font-black text-[#111827]">{metrics.goalTimelineWeeks} <span className="text-sm font-bold text-[#6B7280]">Weeks</span></div>
+                <div className="mt-1 flex items-center gap-1.5 text-xs font-extrabold text-[#8B5CF6]">
+                  <span>🎯</span>
+                  <span>{metrics.weeklyWeightChangeKg} kg/week</span>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="text-4xl font-black text-[#111827]">✓</div>
+                <div className="mt-1 flex items-center gap-1.5 text-xs font-extrabold text-[#8B5CF6]">
+                  <span>🏆</span>
+                  <span>Maintaining</span>
+                </div>
+              </>
+            )}
           </div>
           <div className="border-t border-[#8B5CF6]/15 pt-2 flex items-center justify-between text-[11px] font-bold text-[#6B7280]">
-            <span>Badges: 2 Unlocked</span>
-            <span className="text-[#8B5CF6] font-extrabold flex items-center gap-0.5">Badges <ArrowRight className="w-3 h-3" /></span>
+            <span>Target: {profile.targetWeightKg}kg</span>
+            <span className="text-[#8B5CF6] font-extrabold">{metrics.goalTimelineDate}</span>
           </div>
         </div>
 
@@ -214,10 +241,10 @@ export const HealthDashboard: React.FC = () => {
             <div className="relative w-28 h-28 flex items-center justify-center">
               <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
                 <path className="text-[#E5E7EB]" strokeWidth="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                <path className="text-[#F97316]" strokeDasharray="80, 100" strokeWidth="3.5" strokeLinecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                <path className="text-[#F97316]" strokeDasharray={`${ringPercentages.calPercent}, 100`} strokeWidth="3.5" strokeLinecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
               </svg>
               <div className="absolute text-center">
-                <span className="text-lg font-black text-[#111827]">80%</span>
+                <span className="text-lg font-black text-[#111827]">{ringPercentages.calPercent}%</span>
                 <span className="block text-[9px] font-extrabold text-[#6B7280] uppercase">CALORIES</span>
               </div>
             </div>
@@ -229,10 +256,10 @@ export const HealthDashboard: React.FC = () => {
             <div className="relative w-28 h-28 flex items-center justify-center">
               <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
                 <path className="text-[#E5E7EB]" strokeWidth="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                <path className="text-[#22C55E]" strokeDasharray="88, 100" strokeWidth="3.5" strokeLinecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                <path className="text-[#22C55E]" strokeDasharray={`${ringPercentages.proteinPercent}, 100`} strokeWidth="3.5" strokeLinecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
               </svg>
               <div className="absolute text-center">
-                <span className="text-lg font-black text-[#111827]">88%</span>
+                <span className="text-lg font-black text-[#111827]">{ringPercentages.proteinPercent}%</span>
                 <span className="block text-[9px] font-extrabold text-[#6B7280] uppercase">PROTEIN</span>
               </div>
             </div>
@@ -244,10 +271,10 @@ export const HealthDashboard: React.FC = () => {
             <div className="relative w-28 h-28 flex items-center justify-center">
               <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
                 <path className="text-[#E5E7EB]" strokeWidth="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                <path className="text-[#3B82F6]" strokeDasharray="75, 100" strokeWidth="3.5" strokeLinecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                <path className="text-[#3B82F6]" strokeDasharray={`${ringPercentages.waterPercent}, 100`} strokeWidth="3.5" strokeLinecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
               </svg>
               <div className="absolute text-center">
-                <span className="text-lg font-black text-[#111827]">75%</span>
+                <span className="text-lg font-black text-[#111827]">{ringPercentages.waterPercent}%</span>
                 <span className="block text-[9px] font-extrabold text-[#6B7280] uppercase">WATER</span>
               </div>
             </div>
@@ -258,7 +285,32 @@ export const HealthDashboard: React.FC = () => {
       </div>
 
       {/* ========================================================================= */}
-      {/* 8. APPLE HEALTH EMPTY STATE CARD DEMO */}
+      {/* PERSONALIZED HEALTH TIPS */}
+      {/* ========================================================================= */}
+      {metrics.healthTips && metrics.healthTips.length > 0 && (
+        <div className="bg-white border border-[#E5E7EB] p-6 sm:p-8 rounded-3xl shadow-xs space-y-4">
+          <div className="flex items-center gap-2 border-b border-[#E5E7EB] pb-4">
+            <div className="p-2 rounded-xl bg-[#FFF7ED] border border-[#F97316]/20 text-[#F97316]">
+              <Lightbulb className="w-4 h-4" />
+            </div>
+            <div>
+              <h3 className="text-lg font-extrabold text-[#111827]">Personalized Health Insights</h3>
+              <p className="text-xs text-[#6B7280]">AI-generated recommendations based on your biometric profile.</p>
+            </div>
+          </div>
+          <div className="space-y-3">
+            {metrics.healthTips.map((tip, i) => (
+              <div key={i} className="flex items-start gap-3 p-3 rounded-2xl bg-[#F8FAFC] border border-[#E5E7EB]">
+                <span className="text-xs font-black text-[#22C55E] bg-[#ECFDF5] rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mt-0.5">{i + 1}</span>
+                <p className="text-xs text-[#374151] font-medium leading-relaxed">{tip}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* MEAL PLAN CTA */}
       {/* ========================================================================= */}
       <div className="bg-white border border-[#E5E7EB] p-8 rounded-3xl shadow-xs text-center space-y-4">
         <div className="w-16 h-16 rounded-3xl bg-[#F8FAFC] border border-[#E5E7EB] mx-auto flex items-center justify-center text-3xl">
