@@ -10,7 +10,8 @@ import {
   Sparkles,
   Flame,
   Clock,
-  Target
+  Target,
+  Play
 } from 'lucide-react';
 import { mockExerciseItems } from '../../data/mockData';
 import { useLanguage } from '../../context/LanguageContext';
@@ -27,6 +28,11 @@ export const WorkoutPlannerPage: React.FC = () => {
   const [completedExercises, setCompletedExercises] = useState<string[]>([]);
 
   const isHindi = language === 'hi';
+
+  const handleOpenVideo = (youtubeUrl?: string, title?: string) => {
+    const url = youtubeUrl || `https://www.youtube.com/results?search_query=${encodeURIComponent((title || '') + ' exercise tutorial')}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
 
   // Filter exercises by Location & Goal
   const filteredExercises = mockExerciseItems.filter((ex) => {
@@ -178,21 +184,31 @@ export const WorkoutPlannerPage: React.FC = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.2 }}
-                className={`p-6 rounded-3xl bg-white border shadow-sm transition-all space-y-4 flex flex-col justify-between text-left ${
+                role="button"
+                tabIndex={0}
+                aria-label={`Watch ${ex.title} tutorial on YouTube`}
+                onClick={() => handleOpenVideo(ex.youtubeUrl, ex.title)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleOpenVideo(ex.youtubeUrl, ex.title);
+                  }
+                }}
+                className={`p-6 rounded-3xl bg-white border shadow-sm transition-all duration-300 space-y-4 flex flex-col justify-between text-left cursor-pointer group focus:outline-hidden focus:ring-2 focus:ring-[#06B6D4]/50 ${
                   isDone 
                     ? 'border-emerald-500 bg-emerald-500/5 ring-2 ring-emerald-500/20' 
-                    : 'border-slate-200 hover:border-[#06B6D4]/50 hover:shadow-lg'
+                    : 'border-slate-200 hover:border-[#06B6D4]/60 hover:shadow-xl hover:-translate-y-0.5'
                 }`}
               >
                 <div className="space-y-4">
                   
-                  {/* Top Bar: Icon + Goal Tag */}
-                  <div className="flex items-center justify-between">
-                    <span className="text-4xl p-3.5 rounded-2xl bg-slate-50 border border-slate-200 shadow-xs">
+                  {/* Top Bar: Icon + Goal Tag & Watch Tutorial Badge */}
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-4xl p-3.5 rounded-2xl bg-slate-50 border border-slate-200 shadow-xs group-hover:scale-105 transition-transform duration-300">
                       {ex.illustration}
                     </span>
                     
-                    <div className="flex items-center gap-1.5">
+                    <div className="flex flex-col items-end gap-1.5">
                       <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider border ${
                         isGain 
                           ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-600' 
@@ -202,12 +218,17 @@ export const WorkoutPlannerPage: React.FC = () => {
                           ? (isHindi ? '📈 वजन बढ़ाएं' : '📈 Weight Gain') 
                           : (isHindi ? '📉 वजन घटाएं' : '📉 Weight Loss')}
                       </span>
+
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-red-50 border border-red-200/80 text-red-600 text-[10px] font-extrabold group-hover:bg-red-600 group-hover:text-white transition-colors duration-200 shadow-2xs">
+                        <Play className="w-3 h-3 fill-current shrink-0" />
+                        <span>{isHindi ? 'ट्यूटोरियल देखें' : 'Watch Tutorial'}</span>
+                      </span>
                     </div>
                   </div>
 
                   {/* Title & Muscle Tags */}
                   <div>
-                    <h3 className="text-lg font-black text-slate-900 leading-snug">{ex.title}</h3>
+                    <h3 className="text-lg font-black text-slate-900 leading-snug group-hover:text-[#06B6D4] transition-colors">{ex.title}</h3>
                     <div className="flex flex-wrap gap-1 mt-2">
                       {ex.targetedMuscles.map((m, idx) => (
                         <span key={idx} className="px-2.5 py-1 rounded-md bg-slate-100 border border-slate-200 text-[10px] font-bold text-slate-600">
@@ -251,8 +272,16 @@ export const WorkoutPlannerPage: React.FC = () => {
 
                 {/* Mark Routine Complete Button */}
                 <button
-                  onClick={() => toggleComplete(ex.id)}
-                  className={`w-full py-3 rounded-2xl font-black text-xs transition-all flex items-center justify-center gap-2 ${
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleComplete(ex.id);
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.stopPropagation();
+                    }
+                  }}
+                  className={`w-full py-3 rounded-2xl font-black text-xs transition-all flex items-center justify-center gap-2 relative z-10 ${
                     isDone
                       ? 'bg-emerald-600 text-white shadow-md'
                       : 'bg-slate-900 hover:bg-slate-800 text-white shadow-xs'

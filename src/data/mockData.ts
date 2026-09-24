@@ -631,7 +631,8 @@ export const mockExerciseItems: ExerciseItem[] = [
     reps: '12 - 15 reps',
     restTimeSec: 60,
     caloriesBurned: 120,
-    difficulty: 'Intermediate'
+    difficulty: 'Intermediate',
+    youtubeUrl: 'https://www.youtube.com/watch?v=J0DnG1_S92I'
   },
   {
     id: 'home-gain-2',
@@ -645,7 +646,8 @@ export const mockExerciseItems: ExerciseItem[] = [
     reps: '15 - 20 reps',
     restTimeSec: 60,
     caloriesBurned: 140,
-    difficulty: 'Beginner'
+    difficulty: 'Beginner',
+    youtubeUrl: 'https://www.youtube.com/watch?v=aclHkVaku9U'
   },
   {
     id: 'home-gain-3',
@@ -659,7 +661,8 @@ export const mockExerciseItems: ExerciseItem[] = [
     reps: '12 reps',
     restTimeSec: 60,
     caloriesBurned: 130,
-    difficulty: 'Intermediate'
+    difficulty: 'Intermediate',
+    youtubeUrl: 'https://www.youtube.com/watch?v=0326dy_-CzM'
   },
   {
     id: 'home-gain-4',
@@ -673,7 +676,8 @@ export const mockExerciseItems: ExerciseItem[] = [
     reps: '10 reps / leg',
     restTimeSec: 75,
     caloriesBurned: 150,
-    difficulty: 'Intermediate'
+    difficulty: 'Intermediate',
+    youtubeUrl: 'https://www.youtube.com/watch?v=2C-uNgKwPLE'
   },
   {
     id: 'home-gain-5',
@@ -687,7 +691,8 @@ export const mockExerciseItems: ExerciseItem[] = [
     reps: '10 - 12 reps',
     restTimeSec: 75,
     caloriesBurned: 125,
-    difficulty: 'Pro'
+    difficulty: 'Pro',
+    youtubeUrl: 'https://www.youtube.com/watch?v=sposDXIE040'
   },
   {
     id: 'home-gain-6',
@@ -701,7 +706,8 @@ export const mockExerciseItems: ExerciseItem[] = [
     reps: '12 reps',
     restTimeSec: 60,
     caloriesBurned: 110,
-    difficulty: 'Beginner'
+    difficulty: 'Beginner',
+    youtubeUrl: 'https://www.youtube.com/watch?v=rloXYB8M3vU'
   },
   {
     id: 'home-loss-1',
@@ -715,7 +721,8 @@ export const mockExerciseItems: ExerciseItem[] = [
     reps: '45 sec ON / 15 sec OFF',
     restTimeSec: 45,
     caloriesBurned: 220,
-    difficulty: 'Intermediate'
+    difficulty: 'Intermediate',
+    youtubeUrl: 'https://www.youtube.com/watch?v=auBLPXO8F6U'
   },
   {
     id: 'home-loss-2',
@@ -729,7 +736,8 @@ export const mockExerciseItems: ExerciseItem[] = [
     reps: '40 sec ON / 20 sec OFF',
     restTimeSec: 45,
     caloriesBurned: 240,
-    difficulty: 'Beginner'
+    difficulty: 'Beginner',
+    youtubeUrl: 'https://www.youtube.com/watch?v=nmwgirgXLYM'
   },
   {
     id: 'home-loss-3',
@@ -743,7 +751,8 @@ export const mockExerciseItems: ExerciseItem[] = [
     reps: '50 sec ON / 10 sec OFF',
     restTimeSec: 45,
     caloriesBurned: 210,
-    difficulty: 'Intermediate'
+    difficulty: 'Intermediate',
+    youtubeUrl: 'https://www.youtube.com/watch?v=9BF2-t36Txg'
   },
   {
     id: 'home-loss-4',
@@ -757,7 +766,8 @@ export const mockExerciseItems: ExerciseItem[] = [
     reps: '12 reps per direction',
     restTimeSec: 60,
     caloriesBurned: 230,
-    difficulty: 'Pro'
+    difficulty: 'Pro',
+    youtubeUrl: 'https://www.youtube.com/watch?v=5V_mKyls6xY'
   },
   {
     id: 'home-loss-5',
@@ -771,7 +781,8 @@ export const mockExerciseItems: ExerciseItem[] = [
     reps: '20 reps total',
     restTimeSec: 45,
     caloriesBurned: 130,
-    difficulty: 'Beginner'
+    difficulty: 'Beginner',
+    youtubeUrl: 'https://www.youtube.com/watch?v=9FGilxCkx78'
   },
   {
     id: 'home-loss-6',
@@ -785,7 +796,8 @@ export const mockExerciseItems: ExerciseItem[] = [
     reps: '60 sec nonstop',
     restTimeSec: 30,
     caloriesBurned: 250,
-    difficulty: 'Intermediate'
+    difficulty: 'Intermediate',
+    youtubeUrl: 'https://www.youtube.com/watch?v=kMYLszX3uLw'
   },
 
   // ==========================================
@@ -803,7 +815,8 @@ export const mockExerciseItems: ExerciseItem[] = [
     reps: '8 - 10 reps',
     restTimeSec: 90,
     caloriesBurned: 160,
-    difficulty: 'Intermediate'
+    difficulty: 'Intermediate',
+    youtubeUrl: 'https://www.youtube.com/watch?v=rT7DgCr-3pg'
   },
   {
     id: 'gym-gain-2',
@@ -817,7 +830,8 @@ export const mockExerciseItems: ExerciseItem[] = [
     reps: '8 - 12 reps',
     restTimeSec: 90,
     caloriesBurned: 210,
-    difficulty: 'Intermediate'
+    difficulty: 'Intermediate',
+    youtubeUrl: 'https://www.youtube.com/watch?v=ultWZbUMPL8'
   },
   {
     id: 'gym-gain-3',
@@ -831,7 +845,8 @@ export const mockExerciseItems: ExerciseItem[] = [
     reps: '5 - 8 reps',
     restTimeSec: 120,
     caloriesBurned: 240,
-    difficulty: 'Pro'
+    difficulty: 'Pro',
+    youtubeUrl: 'https://www.youtube.com/watch?v=op9kVnSso6Q'
   },
   {
     id: 'gym-gain-4',
@@ -845,7 +860,8 @@ export const mockExerciseItems: ExerciseItem[] = [
     reps: '10 - 12 reps',
     restTimeSec: 75,
     caloriesBurned: 140,
-    difficulty: 'Intermediate'
+    difficulty: 'Intermediate',
+    youtubeUrl: 'https://www.youtube.com/watch?v=qEwKCR5JCog'
   },
   {
     id: 'gym-gain-5',
@@ -859,7 +875,8 @@ export const mockExerciseItems: ExerciseItem[] = [
     reps: '10 - 12 reps',
     restTimeSec: 75,
     caloriesBurned: 155,
-    difficulty: 'Beginner'
+    difficulty: 'Beginner',
+    youtubeUrl: 'https://www.youtube.com/watch?v=CAwf7n6Luuc'
   },
   {
     id: 'gym-gain-6',
@@ -873,7 +890,8 @@ export const mockExerciseItems: ExerciseItem[] = [
     reps: '12 - 15 reps',
     restTimeSec: 60,
     caloriesBurned: 135,
-    difficulty: 'Beginner'
+    difficulty: 'Beginner',
+    youtubeUrl: 'https://www.youtube.com/watch?v=ykJmrZ5v0Oo'
   },
   {
     id: 'gym-loss-1',
@@ -887,7 +905,8 @@ export const mockExerciseItems: ExerciseItem[] = [
     reps: '3 min Sprint / 2 min Walk',
     restTimeSec: 30,
     caloriesBurned: 320,
-    difficulty: 'Intermediate'
+    difficulty: 'Intermediate',
+    youtubeUrl: 'https://www.youtube.com/watch?v=8i3VqdSH720'
   },
   {
     id: 'gym-loss-2',
@@ -901,7 +920,8 @@ export const mockExerciseItems: ExerciseItem[] = [
     reps: '30 sec All Out Sprint',
     restTimeSec: 45,
     caloriesBurned: 340,
-    difficulty: 'Pro'
+    difficulty: 'Pro',
+    youtubeUrl: 'https://www.youtube.com/watch?v=ls3x3r_fV6E'
   },
   {
     id: 'gym-loss-3',
@@ -915,7 +935,8 @@ export const mockExerciseItems: ExerciseItem[] = [
     reps: '12 reps',
     restTimeSec: 60,
     caloriesBurned: 270,
-    difficulty: 'Intermediate'
+    difficulty: 'Intermediate',
+    youtubeUrl: 'https://www.youtube.com/watch?v=vVj4x8JpW0A'
   },
   {
     id: 'gym-loss-4',
@@ -929,7 +950,8 @@ export const mockExerciseItems: ExerciseItem[] = [
     reps: '45 sec Waves + 10 Box Jumps',
     restTimeSec: 60,
     caloriesBurned: 290,
-    difficulty: 'Pro'
+    difficulty: 'Pro',
+    youtubeUrl: 'https://www.youtube.com/watch?v=1d977ZqN1g4'
   },
   {
     id: 'gym-loss-5',
@@ -943,7 +965,8 @@ export const mockExerciseItems: ExerciseItem[] = [
     reps: '12 - 15 reps',
     restTimeSec: 60,
     caloriesBurned: 190,
-    difficulty: 'Intermediate'
+    difficulty: 'Intermediate',
+    youtubeUrl: 'https://www.youtube.com/watch?v=JCXUYuzwNrM'
   },
   {
     id: 'gym-loss-6',
@@ -957,7 +980,8 @@ export const mockExerciseItems: ExerciseItem[] = [
     reps: '25 Minutes Continuous',
     restTimeSec: 0,
     caloriesBurned: 280,
-    difficulty: 'Beginner'
+    difficulty: 'Beginner',
+    youtubeUrl: 'https://www.youtube.com/watch?v=1aR8iJ1p2fM'
   }
 ];
 
@@ -972,7 +996,8 @@ export const mockYogaPoses: YogaPose[] = [
     durationMinutes: 15,
     difficulty: 'Moderate',
     bodyPartTargeted: 'Full Body Spine & Hamstrings',
-    routineType: 'morning'
+    routineType: 'morning',
+    youtubeUrl: 'https://www.youtube.com/watch?v=1xRX1MuoImw'
   },
   {
     id: 'yoga-2',
@@ -984,19 +1009,21 @@ export const mockYogaPoses: YogaPose[] = [
     durationMinutes: 10,
     difficulty: 'Easy',
     bodyPartTargeted: 'Ankles, Thighs & Core',
-    routineType: 'morning'
+    routineType: 'morning',
+    youtubeUrl: 'https://youtu.be/uELr6MPi7pI'
   },
   {
     id: 'yoga-3',
     title: 'Bhujangasana (Cobra Pose Spine Extension)',
     sanskritName: 'Bhujangasana',
-    image: 'https://images.unsplash.com/photo-1510894347048-471d14f8c8f4?q=80&w=800&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=800&auto=format&fit=crop',
     benefits: ['Relieves lower back pain', 'Expands chest and lung capacity', 'Tones abdominal organs', 'Reduces stress'],
     breathingGuide: 'Inhale while gently lifting chest keeping pelvis grounded, exhale while lowering down.',
     durationMinutes: 8,
     difficulty: 'Easy',
     bodyPartTargeted: 'Spine, Lower Back & Chest',
-    routineType: 'evening'
+    routineType: 'evening',
+    youtubeUrl: 'https://youtu.be/fOdrW7nf9gw'
   },
   {
     id: 'yoga-4',
@@ -1008,7 +1035,8 @@ export const mockYogaPoses: YogaPose[] = [
     durationMinutes: 20,
     difficulty: 'Easy',
     bodyPartTargeted: 'Nervous System & Mind',
-    routineType: 'meditation'
+    routineType: 'meditation',
+    youtubeUrl: 'https://www.youtube.com/watch?v=inpok4MKVLM'
   }
 ];
 

@@ -126,6 +126,7 @@ export interface ExerciseItem {
   restTimeSec: number;
   caloriesBurned: number;
   difficulty: 'Beginner' | 'Intermediate' | 'Pro';
+  youtubeUrl?: string;
 }
 
 export interface YogaPose {
@@ -139,6 +140,7 @@ export interface YogaPose {
   difficulty: 'Easy' | 'Moderate' | 'Advanced';
   bodyPartTargeted: string;
   routineType: 'morning' | 'evening' | 'meditation';
+  youtubeUrl?: string;
 }
 
 export interface FastingPlan {
