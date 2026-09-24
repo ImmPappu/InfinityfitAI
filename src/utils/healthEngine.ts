@@ -18,7 +18,7 @@ import type { UserProfile, HealthCalculations } from '../types';
 // ============================================================================
 function calculateBmi(weightKg: number, heightCm: number) {
   const heightM = heightCm / 100;
-  if (heightM <= 0) return { bmi: 22, bmiCategory: 'Normal Weight', bmiColor: '#10b981' };
+  if (heightM <= 0) return { bmi: 22, bmiCategory: 'Normal Weight', bmiColor: '#10b981', healthyWeightMin: 0, healthyWeightMax: 0 };
 
   const bmiRaw = weightKg / (heightM * heightM);
   const bmi = Math.round(bmiRaw * 10) / 10;
@@ -387,7 +387,7 @@ export function calculateHealthMetrics(profile: UserProfile): HealthCalculations
   const {
     weightKg, heightCm, age, gender,
     activityLevel, goal, bodyType,
-    dietPreference, workoutDaysPerWeek, sleepHours
+    dietPreference, workoutDaysPerWeek
   } = profile;
 
   // 1. BMI
